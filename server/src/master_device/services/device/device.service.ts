@@ -56,7 +56,7 @@ export class DeviceService {
 
   async updateMasterDevice(
     id: string,
-    createProductDTO: updateMasterDeviceDto,
+    createProductDTO: CreateMasterDeviceDto,
   ): Promise<MasterDevice> {
     const updatedMasterDevice = this.masterDeviceModel
       .findByIdAndUpdate(id, createProductDTO, { new: true })
