@@ -11,6 +11,22 @@ interface MasterDevice {
   isDeleted: boolean;
 }
 
+interface CreateMasterDeviceDto {
+  serialNumber: string;
+  name: string;
+  ipV4: string;
+  devices: [];
+  isDeleted: boolean;
+}
+
+interface updateMasterDeviceDto {
+  serialNumber: string;
+  name: string;
+  ipV4: string;
+  devices: [];
+  isDeleted: boolean;
+}
+
 @Injectable()
 export class DeviceService {
   constructor(
@@ -38,7 +54,7 @@ export class DeviceService {
   }
 
   async createMasterDevice(
-    createProductDTO: CreateGatewayDTO,
+    createProductDTO: CreateMasterDeviceDto,
   ): Promise<MasterDevice> {
     const newGateway = new this.masterDeviceModel(createProductDTO);
     return await newGateway.save();
@@ -56,7 +72,7 @@ export class DeviceService {
 
   async updateMasterDevice(
     id: string,
-    createProductDTO: CreateGatewayDTO,
+    createProductDTO: updateMasterDeviceDto,
   ): Promise<MasterDevice> {
     const updatedMasterDevice = this.masterDeviceModel
       .findByIdAndUpdate(id, createProductDTO, { new: true })
