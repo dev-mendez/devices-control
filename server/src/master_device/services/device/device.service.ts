@@ -1,25 +1,9 @@
+import { CreateMasterDeviceDto } from 'src/master_device/dto/createMasterDevice.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { MasterDeviceDocument } from '../../schemas/masterdevice.schema';
 import { Model } from 'mongoose';
 
 interface MasterDevice {
-  serialNumber: string;
-  name: string;
-  ipV4: string;
-  devices: [];
-  isDeleted: boolean;
-}
-
-interface CreateMasterDeviceDto {
-  serialNumber: string;
-  name: string;
-  ipV4: string;
-  devices: [];
-  isDeleted: boolean;
-}
-
-interface updateMasterDeviceDto {
   serialNumber: string;
   name: string;
   ipV4: string;
