@@ -1,18 +1,15 @@
 import {
   Controller,
   Param,
-  Put,
   Res,
   HttpStatus,
   Body,
-  Get,
   Post,
   Delete,
 } from '@nestjs/common';
 
 import { PeripheralService } from 'src/master_device/services/peripheral/peripheral.service';
-import { AddPeripheralDto } from 'src/master_device/dto/createPeripheral.dto';
-import { PeripheralService } from 'src/master_device/services/device/device.service';
+import { AddPeripheralDto } from 'src/master_device/dto/addPeripheral.dto';
 
 @Controller('peripheral')
 export class PeripheralController {
@@ -22,7 +19,7 @@ export class PeripheralController {
   async addPeripheral(@Body() req: AddPeripheralDto, @Res() res) {
     try {
       const { idGateway, ...rest } = req;
-      const newPeripheral = await this.peripheralService.addDevice(
+      const newPeripheral = await this.peripheralService.addPeripheral(
         idGateway,
         req,
       );
