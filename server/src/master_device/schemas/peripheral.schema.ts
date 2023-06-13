@@ -17,7 +17,7 @@ export class Peripheral {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
   })
-  idDevice: string;
+  idMasterDevice: string;
 
   @Prop({ default: false })
   isDeleted: boolean;

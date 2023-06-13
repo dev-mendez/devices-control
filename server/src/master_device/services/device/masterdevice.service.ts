@@ -1,54 +1,50 @@
-import { CreateMasterDeviceDto } from 'src/master_device/dto/createmasterdevice.dto';
+import { CreateMasterDeviceDto } from '../../dto/createmasterdevice.dto';
+import { Device } from '../../types/device.td';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-
-interface MasterDevice {
-  serialNumber: string;
-  name: string;
-  ipV4: string;
-  devices: [];
-  isDeleted: boolean;
-}
 
 @Injectable()
 export class MasterDeviceService {
   constructor(
     @InjectModel('MasterDevice')
-    private readonly masterDeviceModel: Model<MasterDevice>,
+    private readonly masterDeviceModel: Model<Device>,
   ) {}
 
-  async getMasterDevices(): Promise<MasterDevice[]> {
+  async getMasterDevices(): Promise<Device[]> {
     const allMasterDevices = await this.masterDeviceModel
       .find({
         isDeleted: false,
       })
       .populate({
-        path: 'Peripheral',
+        path: 'Peripherals',
         match: { isDeleted: false },
       });
     return allMasterDevices;
   }
-  async getMasterDevice(id: string): Promise<MasterDevice> {
-    const selectedGateway = await this.masterDeviceModel.findById(id).populate({
-      path: 'Peripheral',
-      match: { isDeleted: false },
-    });
-    return selectedGateway;
+
+  async getMasterDevice(id: string): Promise<Device> {
+    const selectedMasterDevice = await this.masterDeviceModel
+      .findById(id)
+      .populate({
+        path: 'Peripherals',
+        match: { isDeleted: false },
+      });
+    return selectedMasterDevice;
   }
 
   async createMasterDevice(
     createMasterDeviceDto: CreateMasterDeviceDto,
-  ): Promise<MasterDevice> {
-    const newGateway = new this.masterDeviceModel(createMasterDeviceDto);
-    return await newGateway.save();
+  ): Promise<Device> {
+    const newMasterDevice = new this.masterDeviceModel(createMasterDeviceDto);
+    return await newMasterDevice.save();
   }
 
-  async deleteMasterDevice(id: string): Promise<MasterDevice> {
+  async deleteMasterDevice(id: string): Promise<Device> {
     const deleteMasterDevice = await this.masterDeviceModel
       .findByIdAndUpdate(id, { isDeleted: true })
       .populate({
-        path: 'Peripheral',
+        path: 'Peripherals',
         match: { isDeleted: false },
       });
     return deleteMasterDevice;
@@ -57,44 +53,46 @@ export class MasterDeviceService {
   async updateMasterDevice(
     id: string,
     createMasterDeviceDto: CreateMasterDeviceDto,
-  ): Promise<MasterDevice> {
+  ): Promise<Device> {
     const updatedMasterDevice = this.masterDeviceModel
       .findByIdAndUpdate(id, createMasterDeviceDto, { new: true })
       .populate({
-        path: 'Peripheral',
+        path: 'Peripherals',
         match: { isDeleted: false },
       });
     return updatedMasterDevice;
   }
 
-  async findById(idGateWay: number): Promise<MasterDevice> {
+  async findById(idMasterDevice: string): Promise<Device> {
     const foundMasterDevice = await this.masterDeviceModel
-      .findById(idGateWay)
+      .findById(idMasterDevice)
       .populate({
-        path: 'Peripheral',
+        path: 'Peripherals',
         match: { isDeleted: false },
       });
     return foundMasterDevice;
   }
 
-  async getNumberPeripheral(idGateWay: number): Promise<number> {
-    const gateway = await this.masterDeviceModel.findById(idGateWay).populate({
-      path: 'Peripheral',
-      match: { isDeleted: false },
-    });
-    if (gateway) return gateway.devices.length;
+  async getNumberPeripheral(idMasterDevice: string): Promise<number> {
+    const masterDevice = await this.masterDeviceModel
+      .findById(idMasterDevice)
+      .populate({
+        path: 'Peripherals',
+        match: { isDeleted: false },
+      });
+    if (masterDevice) return masterDevice.peripherals.length;
     return 0;
   }
 
-  async findBySN(serialNumber: string): Promise<MasterDevice> {
-    const masterDeviceBySerialNumber = await this.masterDeviceModel
-      .findOne({
-        serialNumber,
-      })
-      .populate({
-        path: 'Peripheral',
-        match: { isDeleted: false },
-      });
-    return masterDeviceBySerialNumber;
-  }
+  // async findBySN(serialNumber: string): Promise<Device> {
+  //   const masterDeviceBySerialNumber = await this.masterDeviceModel
+  //     .findOne({
+  //       serialNumber,
+  //     })
+  //     .populate({
+  //       path: 'Peripheral',
+  //       match: { isDeleted: false },
+  //     });
+  //   return masterDeviceBySerialNumber;
+  // }
 }

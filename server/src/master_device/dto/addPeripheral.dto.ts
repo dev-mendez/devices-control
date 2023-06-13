@@ -1,18 +1,28 @@
-import { IsString, IsArray } from 'class-validator';
+import {
+  IsString,
+  IsArray,
+  IsNotEmpty,
+  IsBoolean,
+  IsNumber,
+} from 'class-validator';
 
 export class AddPeripheralDto {
-  @IsString()
+  @IsNotEmpty()
+  @IsNumber()
   uid: number;
 
+  @IsNotEmpty()
   @IsString()
   vendor: string;
 
-  @IsArray()
+  createAt: Date;
+
+  @IsNotEmpty()
+  @IsBoolean()
   status: boolean;
 
-  @IsString()
+  // @Validate(GatewayMaxDevices)
+  @IsNotEmpty()
+  @IsBoolean()
   idMasterDevice: string;
-
-  @IsArray()
-  isDeleted: boolean;
 }

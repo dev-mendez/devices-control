@@ -1,6 +1,8 @@
 import {
   Controller,
+  Request,
   Res,
+  Req,
   Get,
   Post,
   Delete,
@@ -12,9 +14,11 @@ import {
 import { CreateMasterDeviceDto } from '../../dto/createmasterdevice.dto';
 import { MasterDeviceService } from '../../services/device/masterdevice.service';
 
-@Controller('masterdevice')
+@Controller('masterdevices')
 export class MasterDeviceController {
   constructor(private readonly masterDeviceService: MasterDeviceService) {}
+
+  // /** OKOK */
   @Get('/')
   async getMasterDevices(@Res() res) {
     try {
@@ -29,11 +33,15 @@ export class MasterDeviceController {
       });
     }
   }
+
+  /**FIX IT */
   @Post('/create')
   async createMasterDevice(
     @Body() createMasterDeviceDto: CreateMasterDeviceDto,
+    @Req() request: Request,
     @Res() res,
   ) {
+    console.log(request.body);
     try {
       const created_master_device =
         await this.masterDeviceService.createMasterDevice(
@@ -45,10 +53,12 @@ export class MasterDeviceController {
       });
     } catch {
       return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'Error creating master device ',
+        message: 'Error creating master device',
       });
     }
   }
+
+  /** OKOK */
   @Get('/:id')
   async getMasterDevice(@Param('id') id: string, @Res() res) {
     const fetched_device = await this.masterDeviceService.getMasterDevice(id);
@@ -64,8 +74,11 @@ export class MasterDeviceController {
     }
     return res.status(HttpStatus.OK).json({
       message: 'Master device successfully fetched',
+      fetched_device,
     });
   }
+
+  /** OKOK */
   @Delete('/delete/:id')
   async deleteMasterDevice(@Param('id') id: string, @Res() res) {
     const fetched_device = await this.masterDeviceService.getMasterDevice(id);

@@ -1,33 +1,26 @@
 import { AddPeripheralDto } from 'src/master_device/dto/addperipheral.dto';
 import { Injectable } from '@nestjs/common';
+import { IPeripheral } from '../../types/peripheral.td';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-
-interface Peripheral {
-  uid: number;
-  vendor: string;
-  status: boolean;
-  idGateway: string;
-  isDeleted: boolean;
-}
 
 @Injectable()
 export class PeripheralService {
   constructor(
     @InjectModel('Peripheral')
-    private readonly peripheralModel: Model<Peripheral>,
+    private readonly peripheralModel: Model<IPeripheral>,
   ) {}
 
   async addPeripheral(
     idGateway: string,
     addPeripheralDto: AddPeripheralDto,
-  ): Promise<Peripheral> {
+  ): Promise<IPeripheral> {
     const newPeripheral = new this.peripheralModel(addPeripheralDto);
     newPeripheral.idGateway = idGateway;
     return await newPeripheral.save();
   }
 
-  async deletePeripheral(id: string): Promise<Peripheral> {
+  async deletePeripheral(id: string): Promise<IPeripheral> {
     const deletePeripheral = await this.peripheralModel.findByIdAndUpdate(id, {
       isDeleted: true,
     });
