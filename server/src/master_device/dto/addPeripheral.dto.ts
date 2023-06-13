@@ -11,7 +11,7 @@ export class AddPeripheralDto {
   status: boolean;
 
   @IsString()
-  idGateway: string;
+  idMasterDevice: string;
 
   @IsArray()
   isDeleted: boolean;

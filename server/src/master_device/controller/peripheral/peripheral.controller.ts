@@ -8,8 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 
-import { PeripheralService } from 'src/master_device/services/peripheral/peripheral.service';
-import { AddPeripheralDto } from 'src/master_device/dto/addPeripheral.dto';
+import { PeripheralService } from '../../services/peripheral/peripheral.service';
+import { AddPeripheralDto } from '../../dto/addperipheral.dto';
 
 @Controller('peripheral')
 export class PeripheralController {
@@ -18,9 +18,9 @@ export class PeripheralController {
   @Post('/add')
   async addPeripheral(@Body() req: AddPeripheralDto, @Res() res) {
     try {
-      const { idGateway, ...rest } = req;
+      const { idMasterDevice, ...rest } = req;
       const newPeripheral = await this.peripheralService.addPeripheral(
-        idGateway,
+        idMasterDevice,
         req,
       );
       res

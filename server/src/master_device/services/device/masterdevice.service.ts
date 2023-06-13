@@ -1,4 +1,4 @@
-import { CreateMasterDeviceDto } from 'src/master_device/dto/createMasterDevice.dto';
+import { CreateMasterDeviceDto } from 'src/master_device/dto/createmasterdevice.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -12,7 +12,7 @@ interface MasterDevice {
 }
 
 @Injectable()
-export class DeviceService {
+export class MasterDeviceService {
   constructor(
     @InjectModel('MasterDevice')
     private readonly masterDeviceModel: Model<MasterDevice>,
@@ -38,9 +38,9 @@ export class DeviceService {
   }
 
   async createMasterDevice(
-    createProductDTO: CreateMasterDeviceDto,
+    createMasterDeviceDto: CreateMasterDeviceDto,
   ): Promise<MasterDevice> {
-    const newGateway = new this.masterDeviceModel(createProductDTO);
+    const newGateway = new this.masterDeviceModel(createMasterDeviceDto);
     return await newGateway.save();
   }
 
@@ -56,10 +56,10 @@ export class DeviceService {
 
   async updateMasterDevice(
     id: string,
-    createProductDTO: CreateMasterDeviceDto,
+    createMasterDeviceDto: CreateMasterDeviceDto,
   ): Promise<MasterDevice> {
     const updatedMasterDevice = this.masterDeviceModel
-      .findByIdAndUpdate(id, createProductDTO, { new: true })
+      .findByIdAndUpdate(id, createMasterDeviceDto, { new: true })
       .populate({
         path: 'Peripheral',
         match: { isDeleted: false },

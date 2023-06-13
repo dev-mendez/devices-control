@@ -8,18 +8,17 @@ import {
   Body,
   Param,
 } from '@nestjs/common';
-import { CreateMasterDeviceDto } from 'src/master_device/dto/createMasterDevice.dto';
 
-import { DeviceService } from 'src/master_device/services/device/device.service';
+import { CreateMasterDeviceDto } from '../../dto/createmasterdevice.dto';
+import { MasterDeviceService } from '../../services/device/masterdevice.service';
 
-@Controller('masterDevice')
+@Controller('masterdevice')
 export class MasterDeviceController {
-  constructor(private readonly deviceService: DeviceService) {}
-
+  constructor(private readonly masterDeviceService: MasterDeviceService) {}
   @Get('/')
   async getMasterDevices(@Res() res) {
     try {
-      const master_device = await this.deviceService.getMasterDevices();
+      const master_device = await this.masterDeviceService.getMasterDevices();
       return res.status(HttpStatus.OK).json({
         message: 'Master devices successfully fetched ',
         master_device,
@@ -30,16 +29,16 @@ export class MasterDeviceController {
       });
     }
   }
-
   @Post('/create')
   async createMasterDevice(
     @Body() createMasterDeviceDto: CreateMasterDeviceDto,
     @Res() res,
   ) {
     try {
-      const created_master_device = await this.deviceService.createMasterDevice(
-        createMasterDeviceDto,
-      );
+      const created_master_device =
+        await this.masterDeviceService.createMasterDevice(
+          createMasterDeviceDto,
+        );
       return res.status(HttpStatus.OK).json({
         message: 'Master device successfully created ',
         created_master_device,
@@ -50,10 +49,9 @@ export class MasterDeviceController {
       });
     }
   }
-
   @Get('/:id')
   async getMasterDevice(@Param('id') id: string, @Res() res) {
-    const fetched_device = await this.deviceService.getMasterDevice(id);
+    const fetched_device = await this.masterDeviceService.getMasterDevice(id);
     if (!fetched_device) {
       return res
         .status(HttpStatus.NOT_FOUND)
@@ -64,15 +62,13 @@ export class MasterDeviceController {
         .status(HttpStatus.NOT_FOUND)
         .json({ message: 'Master device not found' });
     }
-
     return res.status(HttpStatus.OK).json({
       message: 'Master device successfully fetched',
     });
   }
-
   @Delete('/delete/:id')
   async deleteMasterDevice(@Param('id') id: string, @Res() res) {
-    const fetched_device = await this.deviceService.getMasterDevice(id);
+    const fetched_device = await this.masterDeviceService.getMasterDevice(id);
     if (!fetched_device) {
       return res
         .status(HttpStatus.NOT_FOUND)
@@ -84,9 +80,8 @@ export class MasterDeviceController {
         .json({ message: 'Master device not found' });
     }
     try {
-      const deleted_master_device = await this.deviceService.deleteMasterDevice(
-        id,
-      );
+      const deleted_master_device =
+        await this.masterDeviceService.deleteMasterDevice(id);
       return res.status(HttpStatus.OK).json({
         message: 'Master device successfully deleted',
         deleted_master_device,

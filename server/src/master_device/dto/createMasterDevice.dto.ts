@@ -11,7 +11,7 @@ export class CreateMasterDeviceDto {
   ipV4: string;
 
   @IsArray()
-  devices: [];
+  peripherals: [];
 
   @IsBoolean()
   isDeleted: boolean;

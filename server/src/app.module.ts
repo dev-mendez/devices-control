@@ -1,11 +1,7 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-import { MasterDeviceController } from './master_device/controller/device/masterDevice.controller';
-import { PeripheralController } from './master_device/controller/peripheral/peripheral.controller';
+import { MasterDeviceModule } from './master_device/masterdevice.module';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost/devices-control')],
-  controllers: [MasterDeviceController, PeripheralController],
-  providers: [],
+  imports: [MasterDeviceModule],
 })
 export class AppModule {}

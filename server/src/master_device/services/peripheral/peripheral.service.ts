@@ -1,4 +1,4 @@
-import { AddPeripheralDto } from 'src/master_device/dto/addPeripheral.dto';
+import { AddPeripheralDto } from 'src/master_device/dto/addperipheral.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
