@@ -21,7 +21,7 @@ export class MasterDeviceController {
 
   // /** OKOK */
   @Get('/')
-  async getMasterDevices(@Res() res) {
+  async getMasterDevices(@Res() res): Promise<Device[]> {
     try {
       const master_devices: Device[] =
         await this.masterDeviceService.getMasterDevices();
@@ -40,10 +40,8 @@ export class MasterDeviceController {
   @Post('/create')
   async createMasterDevice(
     @Body() createMasterDeviceDto: CreateMasterDeviceDto,
-    @Req() request: Request,
     @Res() res,
   ) {
-    console.log(request.body);
     try {
       const created_master_device =
         await this.masterDeviceService.createMasterDevice(
@@ -62,7 +60,7 @@ export class MasterDeviceController {
 
   /** OKOK */
   @Get('/:id')
-  async getMasterDevice(@Param('id') id: string, @Res() res) {
+  async getMasterDevice(@Param('id') id: string, @Res() res): Promise<Device> {
     const fetched_device = await this.masterDeviceService.getMasterDevice(id);
     if (!fetched_device) {
       return res

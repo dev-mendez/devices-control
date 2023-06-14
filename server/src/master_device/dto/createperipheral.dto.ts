@@ -4,7 +4,10 @@ import {
   IsBoolean,
   IsNumber,
   IsDate,
+  Validate,
 } from 'class-validator';
+
+import { MaxPeripheralsByDevice } from './valitations/maxperipherals';
 
 export class CreatePeripheralDto {
   @IsNotEmpty()
@@ -22,7 +25,7 @@ export class CreatePeripheralDto {
   @IsBoolean()
   status: boolean;
 
-  // @Validate(GatewayMaxDevices)
+  @Validate(MaxPeripheralsByDevice)
   @IsNotEmpty()
   @IsString()
   idMasterDevice: string;

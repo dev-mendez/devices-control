@@ -66,7 +66,7 @@ export class MasterDeviceService {
   //   return foundMasterDevice;
   // }
 
-  async getNumberPeripheral(idMasterDevice: string): Promise<number> {
+  async getAmountPeripheral(idMasterDevice: string): Promise<number> {
     const masterDevice = await this.masterDeviceModel
       .findById(idMasterDevice)
       .populate({
@@ -77,15 +77,15 @@ export class MasterDeviceService {
     return 0;
   }
 
-  // async findBySN(serialNumber: string): Promise<Device> {
-  //   const masterDeviceBySerialNumber = await this.masterDeviceModel
-  //     .findOne({
-  //       serialNumber,
-  //     })
-  //     .populate({
-  //       path: 'Peripheral',
-  //       match: { isDeleted: false },
-  //     });
-  //   return masterDeviceBySerialNumber;
-  // }
+  async findBySN(serialNumber: string): Promise<Device> {
+    const masterDeviceBySerialNumber = await this.masterDeviceModel
+      .findOne({
+        serialNumber,
+      })
+      .populate({
+        path: 'peripheral',
+        match: { isDeleted: false },
+      });
+    return masterDeviceBySerialNumber;
+  }
 }
