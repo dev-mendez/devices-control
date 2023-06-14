@@ -1,6 +1,9 @@
 import { MasterDeviceController } from './controller/device/masterdevice.controller';
 import { PeripheralController } from './controller/peripheral/peripheral.controller';
 
+import { MaxPeripheralsByDevice } from './dto/validations/maxperipherals';
+import { SerialNumberIsUnique } from './dto/validations/uniqueserialnumber';
+
 import { PeripheralService } from './services/peripheral/peripheral.service';
 import { MasterDeviceService } from './services/device/masterdevice.service';
 
@@ -23,6 +26,11 @@ import { Module } from '@nestjs/common';
     ]),
   ],
   controllers: [MasterDeviceController, PeripheralController],
-  providers: [MasterDeviceService, PeripheralService],
+  providers: [
+    MasterDeviceService,
+    PeripheralService,
+    MaxPeripheralsByDevice,
+    SerialNumberIsUnique,
+  ],
 })
 export class MasterDeviceModule {}

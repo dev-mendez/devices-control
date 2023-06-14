@@ -4,9 +4,7 @@ import mongoose from 'mongoose';
 
 export type MasterDeviceDocument = MasterDevice & Document;
 
-@Schema({
-  timestamps: true,
-})
+@Schema({ timestamps: true })
 export class MasterDevice {
   @Prop({
     unique: true,

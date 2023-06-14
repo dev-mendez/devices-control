@@ -14,6 +14,7 @@ export class MaxPeripheralsByDevice implements ValidatorConstraintInterface {
   async validate(idMasterDevice: string) {
     const peripherals_amount =
       await this.masterDeviceService.getAmountPeripheral(idMasterDevice);
+    console.log(peripherals_amount);
     return peripherals_amount <= 9;
   }
 

@@ -1,4 +1,4 @@
-import { CreateMasterDeviceDto } from '../../dto/createmasterdevice.dto';
+import type { CreateMasterDeviceDto } from '../../dto/createmasterdevice.dto';
 import { Device } from '../../types/device.td';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -56,15 +56,15 @@ export class MasterDeviceService {
     return updatedMasterDevice;
   }
 
-  // async findById(idMasterDevice: string): Promise<Device> {
-  //   const foundMasterDevice = await this.masterDeviceModel
-  //     .findById(idMasterDevice)
-  //     .populate({
-  //       path: 'peripherals',
-  //       match: { isDeleted: false },
-  //     });
-  //   return foundMasterDevice;
-  // }
+  async findById(idMasterDevice: string): Promise<Device> {
+    const foundMasterDevice = await this.masterDeviceModel
+      .findById(idMasterDevice)
+      .populate({
+        path: 'peripherals',
+        match: { isDeleted: false },
+      });
+    return foundMasterDevice;
+  }
 
   async getAmountPeripheral(idMasterDevice: string): Promise<number> {
     const masterDevice = await this.masterDeviceModel

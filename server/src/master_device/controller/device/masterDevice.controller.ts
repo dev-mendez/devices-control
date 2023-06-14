@@ -82,27 +82,32 @@ export class MasterDeviceController {
   @Delete('/delete/:id')
   async deleteMasterDevice(@Param('id') id: string, @Res() res) {
     const fetched_device = await this.masterDeviceService.getMasterDevice(id);
+
     if (!fetched_device) {
       return res
         .status(HttpStatus.NOT_FOUND)
-        .json({ message: 'Master device not found' });
-    }
-    if (fetched_device.isDeleted) {
+        .json({ message: 'There is no such device.' });
+    } else if (fetched_device.isDeleted) {
       return res
         .status(HttpStatus.NOT_FOUND)
-        .json({ message: 'Master device not found' });
-    }
-    try {
-      const deleted_master_device =
-        await this.masterDeviceService.deleteMasterDevice(id);
-      return res.status(HttpStatus.OK).json({
-        message: 'Master device successfully deleted',
-        deleted_master_device,
-      });
-    } catch {
+        .json({ message: 'This device was already deleted.' });
+    } else if (fetched_device.peripherals.length > 0) {
       return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'Error deleting master device ',
+        message: 'This device has peripherals.',
       });
+    } else {
+      try {
+        const deleted_master_device =
+          await this.masterDeviceService.deleteMasterDevice(id);
+        return res.status(HttpStatus.OK).json({
+          message: 'Master device successfully deleted.',
+          deleted_master_device,
+        });
+      } catch {
+        return res.status(HttpStatus.BAD_REQUEST).json({
+          message: 'Error deleting master device.',
+        });
+      }
     }
   }
 }

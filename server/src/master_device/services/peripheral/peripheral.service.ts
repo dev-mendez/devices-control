@@ -29,6 +29,10 @@ export class PeripheralService {
     );
     return savedPheripheral;
   }
+  async getPeripheral(id: string): Promise<IPeripheral> {
+    const selectedPeripheral = await this.peripheralModel.findById(id);
+    return selectedPeripheral;
+  }
 
   async deletePeripheral(id: string): Promise<IPeripheral> {
     const deletePeripheral = await this.peripheralModel.findByIdAndUpdate(id, {

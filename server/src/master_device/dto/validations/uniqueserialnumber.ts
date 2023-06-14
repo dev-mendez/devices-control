@@ -9,10 +9,10 @@ import { MasterDeviceService } from '../../services/device/masterdevice.service'
 @ValidatorConstraint({ name: 'SerialNumberIsUnique', async: true })
 @Injectable()
 export class SerialNumberIsUnique implements ValidatorConstraintInterface {
-  constructor(private gatewayService: MasterDeviceService) {}
+  constructor(private masterDeviceService: MasterDeviceService) {}
 
   async validate(serialNumber: string) {
-    const result = await this.gatewayService.findBySN(serialNumber);
+    const result = await this.masterDeviceService.findBySN(serialNumber);
     return result === null;
   }
 
