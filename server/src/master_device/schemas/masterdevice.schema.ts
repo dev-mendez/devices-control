@@ -28,8 +28,8 @@ export class MasterDevice {
   })
   ipV4: string;
 
-  @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Peripherals' }])
-  Peripherals: [Peripheral];
+  @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Peripheral' }])
+  peripherals: [Peripheral];
 
   @Prop({ default: false })
   isDeleted: boolean;

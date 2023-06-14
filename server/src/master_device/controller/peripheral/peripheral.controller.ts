@@ -9,14 +9,14 @@ import {
 } from '@nestjs/common';
 
 import { PeripheralService } from '../../services/peripheral/peripheral.service';
-import { AddPeripheralDto } from '../../dto/addperipheral.dto';
+import { CreatePeripheralDto } from '../../dto/createperipheral.dto';
 
 @Controller('peripheral')
 export class PeripheralController {
   constructor(private readonly peripheralService: PeripheralService) {}
 
-  @Post('/add')
-  async addPeripheral(@Body() req: AddPeripheralDto, @Res() res) {
+  @Post('/create')
+  async createPeripheral(@Body() req: CreatePeripheralDto, @Res() res) {
     try {
       const { idMasterDevice, ...rest } = req;
       const newPeripheral = await this.peripheralService.addPeripheral(

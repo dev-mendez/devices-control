@@ -12,24 +12,17 @@ export class MasterDeviceService {
   ) {}
 
   async getMasterDevices(): Promise<Device[]> {
-    const allMasterDevices = await this.masterDeviceModel
-      .find({
-        isDeleted: false,
-      })
-      .populate({
-        path: 'Peripherals',
-        match: { isDeleted: false },
-      });
+    const allMasterDevices = await this.masterDeviceModel.find({
+      isDeleted: false,
+    });
     return allMasterDevices;
   }
 
   async getMasterDevice(id: string): Promise<Device> {
     const selectedMasterDevice = await this.masterDeviceModel
       .findById(id)
-      .populate({
-        path: 'Peripherals',
-        match: { isDeleted: false },
-      });
+      .populate({ path: 'peripherals', match: { isDeleted: false } });
+
     return selectedMasterDevice;
   }
 
@@ -44,7 +37,7 @@ export class MasterDeviceService {
     const deleteMasterDevice = await this.masterDeviceModel
       .findByIdAndUpdate(id, { isDeleted: true })
       .populate({
-        path: 'Peripherals',
+        path: 'peripherals',
         match: { isDeleted: false },
       });
     return deleteMasterDevice;
@@ -57,27 +50,27 @@ export class MasterDeviceService {
     const updatedMasterDevice = this.masterDeviceModel
       .findByIdAndUpdate(id, createMasterDeviceDto, { new: true })
       .populate({
-        path: 'Peripherals',
+        path: 'peripherals',
         match: { isDeleted: false },
       });
     return updatedMasterDevice;
   }
 
-  async findById(idMasterDevice: string): Promise<Device> {
-    const foundMasterDevice = await this.masterDeviceModel
-      .findById(idMasterDevice)
-      .populate({
-        path: 'Peripherals',
-        match: { isDeleted: false },
-      });
-    return foundMasterDevice;
-  }
+  // async findById(idMasterDevice: string): Promise<Device> {
+  //   const foundMasterDevice = await this.masterDeviceModel
+  //     .findById(idMasterDevice)
+  //     .populate({
+  //       path: 'peripherals',
+  //       match: { isDeleted: false },
+  //     });
+  //   return foundMasterDevice;
+  // }
 
   async getNumberPeripheral(idMasterDevice: string): Promise<number> {
     const masterDevice = await this.masterDeviceModel
       .findById(idMasterDevice)
       .populate({
-        path: 'Peripherals',
+        path: 'peripherals',
         match: { isDeleted: false },
       });
     if (masterDevice) return masterDevice.peripherals.length;

@@ -5,5 +5,6 @@ export interface IPeripheral extends Document {
   readonly vendor: string;
   readonly createAt: Date;
   readonly status: boolean;
+  idMasterDevice: string;
   idGateway: string;
 }

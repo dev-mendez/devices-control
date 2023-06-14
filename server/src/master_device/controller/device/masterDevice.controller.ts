@@ -13,6 +13,7 @@ import {
 
 import { CreateMasterDeviceDto } from '../../dto/createmasterdevice.dto';
 import { MasterDeviceService } from '../../services/device/masterdevice.service';
+import { Device } from 'src/master_device/types/device.td';
 
 @Controller('masterdevices')
 export class MasterDeviceController {
@@ -22,10 +23,11 @@ export class MasterDeviceController {
   @Get('/')
   async getMasterDevices(@Res() res) {
     try {
-      const master_device = await this.masterDeviceService.getMasterDevices();
+      const master_devices: Device[] =
+        await this.masterDeviceService.getMasterDevices();
       return res.status(HttpStatus.OK).json({
         message: 'Master devices successfully fetched ',
-        master_device,
+        master_devices,
       });
     } catch {
       return res.status(HttpStatus.BAD_REQUEST).json({
@@ -34,7 +36,7 @@ export class MasterDeviceController {
     }
   }
 
-  /**FIX IT */
+  /** OKOK */
   @Post('/create')
   async createMasterDevice(
     @Body() createMasterDeviceDto: CreateMasterDeviceDto,

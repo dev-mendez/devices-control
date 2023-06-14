@@ -16,9 +16,13 @@ import { Module } from '@nestjs/common';
         name: 'MasterDevice',
         schema: MasterDeviceSchema,
       },
+      {
+        name: 'Peripheral',
+        schema: PeripheralSchema,
+      },
     ]),
   ],
-  controllers: [MasterDeviceController],
-  providers: [MasterDeviceService],
+  controllers: [MasterDeviceController, PeripheralController],
+  providers: [MasterDeviceService, PeripheralService],
 })
 export class MasterDeviceModule {}

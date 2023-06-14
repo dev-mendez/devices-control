@@ -1,12 +1,12 @@
 import {
   IsString,
-  IsArray,
   IsNotEmpty,
   IsBoolean,
   IsNumber,
+  IsDate,
 } from 'class-validator';
 
-export class AddPeripheralDto {
+export class CreatePeripheralDto {
   @IsNotEmpty()
   @IsNumber()
   uid: number;
@@ -15,6 +15,7 @@ export class AddPeripheralDto {
   @IsString()
   vendor: string;
 
+  @IsDate()
   createAt: Date;
 
   @IsNotEmpty()
@@ -23,6 +24,6 @@ export class AddPeripheralDto {
 
   // @Validate(GatewayMaxDevices)
   @IsNotEmpty()
-  @IsBoolean()
+  @IsString()
   idMasterDevice: string;
 }
