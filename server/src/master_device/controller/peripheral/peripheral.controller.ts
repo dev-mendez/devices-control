@@ -38,28 +38,28 @@ export class PeripheralController {
 
       if (!getPeripheral) {
         res.status(HttpStatus.NOT_FOUND).json({
-          message: 'Peripheral not found.',
+          message: 'Peripheral not found!',
         });
       } else if (getPeripheral.isDeleted) {
-        res.status(HttpStatus.BAD_REQUEST).json({
-          message: 'Peripheral is already deleted.',
+        res.status(HttpStatus.GONE).json({
+          message: 'Peripheral is already deleted!',
         });
       } else if (getPeripheral.status) {
-        res.status(HttpStatus.BAD_REQUEST).json({
-          message: 'Peripheral is online. Turn off the peripheral first.',
+        res.status(HttpStatus.CONFLICT).json({
+          message: 'Peripheral is online! Turn off the peripheral first.',
         });
       } else {
         const deletedPeripheral = await this.peripheralService.deletePeripheral(
           id,
         );
         res.status(HttpStatus.OK).json({
-          message: 'Peripheral successfully deleted.',
+          message: 'Peripheral successfully deleted!',
           deletedPeripheral,
         });
       }
     } catch {
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-        message: 'Error deleting peripheral.',
+        message: 'Error deleting this peripheral!',
       });
     }
   }

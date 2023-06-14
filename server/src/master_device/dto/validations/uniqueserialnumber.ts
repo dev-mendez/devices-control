@@ -17,6 +17,6 @@ export class SerialNumberIsUnique implements ValidatorConstraintInterface {
   }
 
   defaultMessage(_) {
-    return 'The serial number must be unique.';
+    return 'The serial number must be unique! (Possible code 409. Conflict.)';
   }
 }

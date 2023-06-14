@@ -1,8 +1,6 @@
 import {
   Controller,
-  Request,
   Res,
-  Req,
   Get,
   Post,
   Delete,
@@ -26,12 +24,12 @@ export class MasterDeviceController {
       const master_devices: Device[] =
         await this.masterDeviceService.getMasterDevices();
       return res.status(HttpStatus.OK).json({
-        message: 'Master devices successfully fetched ',
+        message: 'Devices successfully fetched!',
         master_devices,
       });
     } catch {
-      return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'Error fetching master devices ',
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        message: 'Error fetching devices!',
       });
     }
   }
@@ -48,12 +46,12 @@ export class MasterDeviceController {
           createMasterDeviceDto,
         );
       return res.status(HttpStatus.OK).json({
-        message: 'Master device successfully created ',
+        message: 'Device successfully created!',
         created_master_device,
       });
     } catch {
-      return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'Error creating master device',
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        message: 'Error creating this device!',
       });
     }
   }
@@ -61,53 +59,60 @@ export class MasterDeviceController {
   /** OKOK */
   @Get('/:id')
   async getMasterDevice(@Param('id') id: string, @Res() res): Promise<Device> {
-    const fetched_device = await this.masterDeviceService.getMasterDevice(id);
-    if (!fetched_device) {
-      return res
-        .status(HttpStatus.NOT_FOUND)
-        .json({ message: 'Master device not found' });
+    try {
+      const fetched_device = await this.masterDeviceService.getMasterDevice(id);
+
+      if (!fetched_device) {
+        return res
+          .status(HttpStatus.NOT_FOUND)
+          .json({ message: 'This device is not found!' });
+      } else if (fetched_device.isDeleted) {
+        return res
+          .status(HttpStatus.GONE)
+          .json({ message: 'This device has gone!' });
+      } else {
+        return res.status(HttpStatus.OK).json({
+          message: 'Device successfully fetched!',
+          fetched_device,
+        });
+      }
+    } catch {
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        message: 'Error creating this device!',
+      });
     }
-    if (fetched_device.isDeleted) {
-      return res
-        .status(HttpStatus.NOT_FOUND)
-        .json({ message: 'Master device not found' });
-    }
-    return res.status(HttpStatus.OK).json({
-      message: 'Master device successfully fetched',
-      fetched_device,
-    });
   }
 
   /** OKOK */
   @Delete('/delete/:id')
   async deleteMasterDevice(@Param('id') id: string, @Res() res) {
-    const fetched_device = await this.masterDeviceService.getMasterDevice(id);
+    try {
+      const fetched_device = await this.masterDeviceService.getMasterDevice(id);
 
-    if (!fetched_device) {
-      return res
-        .status(HttpStatus.NOT_FOUND)
-        .json({ message: 'There is no such device.' });
-    } else if (fetched_device.isDeleted) {
-      return res
-        .status(HttpStatus.NOT_FOUND)
-        .json({ message: 'This device was already deleted.' });
-    } else if (fetched_device.peripherals.length > 0) {
-      return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'This device has peripherals.',
-      });
-    } else {
-      try {
+      if (!fetched_device) {
+        return res
+          .status(HttpStatus.NOT_FOUND)
+          .json({ message: 'There is no such device!' });
+      } else if (fetched_device.isDeleted) {
+        return res
+          .status(HttpStatus.GONE)
+          .json({ message: 'Ups! This device was already deleted!' });
+      } else if (fetched_device.peripherals.length > 0) {
+        return res.status(HttpStatus.CONFLICT).json({
+          message: 'This device has peripherals, please delete them first!',
+        });
+      } else {
         const deleted_master_device =
           await this.masterDeviceService.deleteMasterDevice(id);
         return res.status(HttpStatus.OK).json({
-          message: 'Master device successfully deleted.',
+          message: 'This device was successfully deleted!',
           deleted_master_device,
         });
-      } catch {
-        return res.status(HttpStatus.BAD_REQUEST).json({
-          message: 'Error deleting master device.',
-        });
       }
+    } catch {
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        message: 'Error deleting this device!',
+      });
     }
   }
 }
