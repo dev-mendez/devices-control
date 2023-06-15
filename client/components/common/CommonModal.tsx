@@ -4,12 +4,12 @@ type Props = {
   props: {
     isOpen: boolean;
     toggleModal: () => void;
-    isMasterDeviceRoute: boolean;
+    isMasterDeviceView: boolean;
   }
 }
 
 const Modal = ({ props }: Props) => {
-  const { isOpen, toggleModal, isMasterDeviceRoute } = props
+  const { isOpen, toggleModal, isMasterDeviceView } = props
   return (
     <div>
       {isOpen && (
@@ -18,7 +18,7 @@ const Modal = ({ props }: Props) => {
           <div className="modal">
             <h1>This is a modal</h1>
             <div className="modal-content design-mode-2">
-              {isMasterDeviceRoute ? <p>Master Device</p> : <p>Peripheral</p>}
+              {isMasterDeviceView ? <p>Master Device</p> : <p>Peripheral</p>}
             </div>
             <button onClick={toggleModal}>Close Modal</button>
           </div>

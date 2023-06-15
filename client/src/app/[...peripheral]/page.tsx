@@ -1,11 +1,11 @@
 'use client'
 import { useState } from "react";
 import { FC } from "react";
-import { NoDevice } from "@/components/utils/Empty-table";
-import { Peripheral } from "@/components/Peripheral";
+import { NoDevice } from "@/components/utils/EmptyTableStatus";
+import { Peripheral } from "@/components/dispositives/Peripheral";
 import Link from "next/link";
 import Modal
-  from "@/components/common/App-modal";
+  from "@/components/common/CommonModal";
 const WindowPeripherals: FC = () => {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -26,9 +26,9 @@ const WindowPeripherals: FC = () => {
         </div>
       </div>
       <div className="w-full h-auto  flex flex-col  p-2  items-center ">
-        <Modal props={{ isOpen, toggleModal, isMasterDeviceRoute: false }} />
+        <Modal props={{ isOpen, toggleModal, isMasterDeviceView: false }} />
         <Peripheral />
-        {/* <NoDevice /> */}
+        <NoDevice props={{ message: 'Peripherals', toggleModal }} />
       </div>
     </div>
   );
