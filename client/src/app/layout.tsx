@@ -1,6 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { Navbar } from '@/components/Navbar'
+import { Navbar } from '@/components/common/Navbar'
+import Modal from '@/components/common/App-modal'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -17,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        <main className="min-h-screen items-center p-2 md:p-24 design-mode ">
+        <main className="min-h-screen items-center p-2 md:p-24">
           {children}
         </main >
       </body>
