@@ -27,6 +27,44 @@ nav {
   background: rgb(var(--nav-background-start-rgb));
 }
 
+.modal {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(var(--nav-background-start-rgb));
+  padding: 20px;
+  width: 300px;
+  max-width: 50vw;
+  z-index: 1000;
+  animation: modal-in 0.3s ease-in-out forwards;
+}
+.modal-overlay {
+  position: fixed;
+  background-color: rgba(var(--body-background-start-rgb), 0.5);
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+@keyframes modal-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.modal-content {
+  padding: 10px;
+}
+
 .design-mode {
   @apply border border-dashed border-white;
 }
