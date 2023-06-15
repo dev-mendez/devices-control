@@ -20,7 +20,7 @@ export const Peripheral: FC = () => {
       </div>
       <div className="inline-block ml-auto  align-middle self-center space-x-2 md:space-x-4">
         <button className="px-2 border border-gray-200 bg-green-100 hover:bg-green-300">Stop / Run</button>
-        <button className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300">Unmount</button>
+        <button className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300">Disconect</button>
       </div>
     </div>
   );

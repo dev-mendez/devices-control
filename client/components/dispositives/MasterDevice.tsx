@@ -1,6 +1,7 @@
 import { FC } from "react";
+import Link from "next/link";
 
-export const MasterDevice: FC = () => {
+const MasterDevice: FC = () => {
   return (
     <div className="w-full md:flex bg-slate-300 text-gray-500  p-2 my-1 shadow hover:shadow-gray-400">
       <div className="self-center align-middle inline-block p-1">ICONO</div>
@@ -19,9 +20,13 @@ export const MasterDevice: FC = () => {
         </div>
       </div>
       <div className="inline-block ml-auto  align-middle self-center space-x-2 md:space-x-4">
-        <button className="px-2 border border-gray-200 bg-green-100 hover:bg-green-300">Add pheripheral</button>
+        <Link href={'perihperal/1'}>
+          <button className="px-2 border border-gray-200 bg-green-100 hover:bg-green-300">Peripherals</button>
+        </Link>
         <button className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300">Unmount</button>
       </div>
     </div>
   );
-}   
+}
+
+export default MasterDevice

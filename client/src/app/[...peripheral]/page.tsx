@@ -26,7 +26,7 @@ const WindowPeripherals: FC = () => {
         </div>
       </div>
       <div className="w-full h-auto  flex flex-col  p-2  items-center ">
-        <Modal props={{ isOpen, toggleModal, isMasterDeviceView: false }} />
+        <Modal props={{ isOpen, toggleModal, isMasterDeviceView: false, headMessage: 'Connect a new Peripheral on this device' }} />
         <Peripheral />
         <NoDevice props={{ message: 'Peripherals', toggleModal }} />
       </div>

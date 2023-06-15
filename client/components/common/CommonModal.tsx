@@ -1,26 +1,33 @@
 'use client'
+import MasterDeviceForm from "../forms/MasterDeviceForm";
+import PeripheralForm from "../forms/PeripheralForm";
 
 type Props = {
   props: {
     isOpen: boolean;
+    headMessage: string
     toggleModal: () => void;
     isMasterDeviceView: boolean;
   }
 }
 
 const Modal = ({ props }: Props) => {
-  const { isOpen, toggleModal, isMasterDeviceView } = props
+  const { isOpen, toggleModal, isMasterDeviceView, headMessage } = props
   return (
     <div>
       {isOpen && (
         <>
           <div className="modal-overlay" onClick={toggleModal}></div>
-          <div className="modal">
-            <h1>This is a modal</h1>
-            <div className="modal-content design-mode-2">
-              {isMasterDeviceView ? <p>Master Device</p> : <p>Peripheral</p>}
+          <div className="modal min-w-fit max-w-full">
+            <div className="w-full pb-2 border-b">
+              <p onClick={toggleModal} className="border border-1 px-1 rounded inline-block hover:cursor-pointer hover:bg-gray-200 float-right">X</p>
+              <h1 className="font-bold">{headMessage}</h1>
             </div>
-            <button onClick={toggleModal}>Close Modal</button>
+            <div className="modal-content">
+              {isMasterDeviceView ?
+                <MasterDeviceForm /> :
+                <PeripheralForm />}
+            </div>
           </div>
         </>
       )}
