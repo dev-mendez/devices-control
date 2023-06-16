@@ -4,6 +4,7 @@ import { IPeripheral } from '../../types/peripheral.td';
 import { Device } from 'src/master_device/types/device.td';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UpdatePeripheralDto } from 'src/master_device/dto/updatePeripheral.dto';
 
 @Injectable()
 export class PeripheralService {
@@ -32,6 +33,18 @@ export class PeripheralService {
   async getPeripheral(id: string): Promise<IPeripheral> {
     const selectedPeripheral = await this.peripheralModel.findById(id);
     return selectedPeripheral;
+  }
+
+  async updatePeripheral(
+    _id: string,
+    updatePeripheralDto: UpdatePeripheralDto,
+  ): Promise<IPeripheral> {
+    const updatePeripheral = await this.peripheralModel.findByIdAndUpdate(
+      _id,
+      updatePeripheralDto,
+      { new: true },
+    );
+    return updatePeripheral;
   }
 
   async deletePeripheral(id: string): Promise<IPeripheral> {

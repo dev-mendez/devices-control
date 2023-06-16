@@ -1,7 +1,6 @@
 
 import { FC } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
-import axios from 'axios'
 
 interface MasterDeviceFormProps {
   props: {

@@ -6,15 +6,52 @@ import { Peripheral } from "@/components/dispositives/Peripheral";
 import Link from "next/link";
 import Modal from "@/components/common/CommonModal";
 
-const WindowPeripherals: FC = () => {
+
+const fetchMasterDevice = async (_id: string) => await fetch(`http://localhost:3001/masterdevices/${_id}`);
+
+
+
+async function deletePeripheral(_id: string, peripherals: Array<IPeripheral>, setPeripherals: ([]) => void): Promise<void> {
+  const response = await fetch(`http://localhost:3001/peripheral/delete/${_id}`, { method: 'DELETE' });
+  if (!response.ok) {
+    throw new Error(`Error deleting device: ${response.status}`);
+  } else {
+    setPeripherals(peripherals.filter((peripheral) => peripheral._id !== _id))
+    alert('Deleted')
+  }
+}
+
+interface PeripheralsPageProps {
+  params: any
+}
+
+interface IPeripheral {
+  _id: string,
+  vendor: string,
+  status: string
+  uid: number,
+  disconnectPeripheral: (_id: string) => Promise<void>
+}
+
+const PeripheralsPage: FC<PeripheralsPageProps> = ({ params }) => {
+
+  const _id = params.peripheral[1]
   const [isOpen, setIsOpen] = useState(false);
+  const [perihperals, setPeripherals] = useState<IPeripheral[]>([])
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
 
+  const disconnectPeripheral = (_id: string): Promise<void> => deletePeripheral(_id, perihperals, setPeripherals)
+
   useEffect(() => {
-    console.log('isOpen con effect', isOpen)
+
+    // console.log(_id)
+    fetchMasterDevice('648be464a7cdb66ad437c53e').then((response) => response.json().then((data) => setPeripherals(data.fetched_device.peripherals)
+    ))
+    console.log(perihperals)
+    // )
   }, [isOpen])
 
 
@@ -30,12 +67,12 @@ const WindowPeripherals: FC = () => {
         </div>
       </div>
       <div className="w-full h-auto  flex flex-col  p-2  items-center ">
-        <Modal props={{ isOpen, toggleModal, isMasterDeviceView: false, headMessage: 'Connect a new Peripheral on this device' }} />
-        <Peripheral />
-        <NoDevice props={{ message: 'Peripherals', toggleModal }} />
+        <Modal props={{ isOpen, toggleModal, isMasterDeviceView: false, _id, headMessage: 'Connect a new Peripheral on this device' }} />
+        {perihperals.map((perihperal, id) => (<Peripheral key={id} props={{ ...perihperal, disconnectPeripheral }} />))}
+        {perihperals.length ? null : (<NoDevice props={{ message: 'Peripherals', toggleModal }} />)}
       </div>
     </div>
   );
 }
 
-export default WindowPeripherals
+export default PeripheralsPage

@@ -6,10 +6,13 @@ import {
   Body,
   Post,
   Delete,
+  Put,
+  Patch,
 } from '@nestjs/common';
 
 import { PeripheralService } from '../../services/peripheral/peripheral.service';
 import { CreatePeripheralDto } from '../../dto/createperipheral.dto';
+import { UpdatePeripheralDto } from '../../dto/updatePeripheral.dto';
 
 @Controller('peripheral')
 export class PeripheralController {
@@ -26,6 +29,27 @@ export class PeripheralController {
       res
         .status(HttpStatus.CREATED)
         .json({ message: 'Device successfully created!', newPeripheral });
+    } catch (err) {
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(err.message);
+    }
+  }
+
+  @Patch('/update/:_id')
+  async updatePeripheral(
+    @Body() updatePeripheralDto: UpdatePeripheralDto,
+    @Res() res,
+    @Param('_id') _id: string,
+  ) {
+    try {
+      const updatePeripheral = await this.peripheralService.updatePeripheral(
+        <string>_id,
+        <UpdatePeripheralDto>updatePeripheralDto,
+      );
+
+      return res.status(HttpStatus.OK).json({
+        message: 'Peripheral successfully updated!',
+        updatePeripheral,
+      });
     } catch (err) {
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(err.message);
     }

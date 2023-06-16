@@ -31,7 +31,7 @@ const MasterDevice: FC<MasterDeviceProps> = ({ props }) => {
         </div>
       </div>
       <div className="inline-block ml-auto  align-middle self-center space-x-2 md:space-x-4">
-        <Link href={'perihperal/1'}>
+        <Link href={`perihperal/${_id}`}>
           <button className="px-2 border border-gray-200 bg-green-100 hover:bg-green-300">Peripherals</button>
         </Link>
         <button onClick={async () => !peripherals.length ? await unmountDevice(_id) : alert('You must disconnect all peripherals first')
