@@ -28,10 +28,13 @@ export class PeripheralService {
       { _id: idMasterDevice },
       { $push: { peripherals: savedPheripheral } },
     );
+
     return savedPheripheral;
   }
+
   async getPeripheral(id: string): Promise<IPeripheral> {
     const selectedPeripheral = await this.peripheralModel.findById(id);
+
     return selectedPeripheral;
   }
 
@@ -44,6 +47,7 @@ export class PeripheralService {
       updatePeripheralDto,
       { new: true },
     );
+
     return updatePeripheral;
   }
 
@@ -51,6 +55,7 @@ export class PeripheralService {
     const deletePeripheral = await this.peripheralModel.findByIdAndUpdate(id, {
       isDeleted: true,
     });
+
     return deletePeripheral;
   }
 }
