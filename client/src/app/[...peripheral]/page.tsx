@@ -1,18 +1,22 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FC } from "react";
 import { NoDevice } from "@/components/utils/EmptyTableStatus";
 import { Peripheral } from "@/components/dispositives/Peripheral";
 import Link from "next/link";
-import Modal
-  from "@/components/common/CommonModal";
-const WindowPeripherals: FC = () => {
+import Modal from "@/components/common/CommonModal";
 
+const WindowPeripherals: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    console.log('isOpen con effect', isOpen)
+  }, [isOpen])
+
 
   return (
     <div className=" bg-white text-gray-500  h-min min-w-25 pb-5 shadow-inner shadow-gray-300">

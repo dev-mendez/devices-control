@@ -9,6 +9,7 @@ type Props = {
     toggleModal: () => void;
     isMasterDeviceView: boolean;
   }
+
 }
 
 const Modal = ({ props }: Props) => {
@@ -25,7 +26,7 @@ const Modal = ({ props }: Props) => {
             </div>
             <div className="modal-content">
               {isMasterDeviceView ?
-                <MasterDeviceForm /> :
+                <MasterDeviceForm props={{ toggleModal }} /> :
                 <PeripheralForm />}
             </div>
           </div>
