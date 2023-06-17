@@ -6,7 +6,6 @@ import Modal from "@/components/common/CommonModal";
 import MasterDevice from "@/components/dispositives/MasterDevice";
 import { fetchMasterDevices, deleteDevice } from '@/API/HTTP_req'
 import type { IMasterDevice } from "@/types/types.td";
-import 'react-toastify/dist/ReactToastify.css';
 
 const Home: FC = (): ReactNode => {
   const [isOpen, setIsOpen] = useState(false);
