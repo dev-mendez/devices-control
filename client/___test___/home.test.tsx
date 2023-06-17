@@ -2,7 +2,6 @@ import Home from '@/src/app/page';
 import '@testing-library/jest-dom'
 import { screen, render, waitFor, fireEvent } from '@testing-library/react';
 import { mockData, mockDataAddedDevice } from '@/__mocks__/data';
-import { Notifications } from '../components/common/Notifications';
 import { deleteDevice } from '../API/HTTP_req';
 
 jest.mock('../API/HTTP_req', () => ({

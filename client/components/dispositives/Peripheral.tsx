@@ -2,8 +2,7 @@ import { FC } from "react";
 import { MdOutlineDevicesOther } from "react-icons/md";
 import { Notifications } from "../common/Notifications";
 
-interface Peripheral {
-  props: {
+interface Peripheral {  
     _id: string,
     uid: number,
     status: boolean
@@ -11,10 +10,9 @@ interface Peripheral {
     toggleModal: () => void
     disconnectPeripheral: (_id: string) => Promise<void>
     changePeripheralStatus: (_id: string, newStatus: boolean) => Promise<void>
-  }
 }
 
-export const Peripheral: FC<Peripheral> = ({ props }) => {
+export const Peripheral: FC<Peripheral> = (props) => {
 
   const { disconnectPeripheral, changePeripheralStatus, _id, uid, status } = props
 
@@ -38,7 +36,7 @@ export const Peripheral: FC<Peripheral> = ({ props }) => {
         <button onClick={async () => await changePeripheralStatus(_id, !status)}
           className="px-2 border border-gray-200 bg-green-100 hover:bg-green-300">{status ? 'Stop' : 'Run'}
         </button>
-        <button onClick={async () => !status ? await disconnectPeripheral(_id) : Notifications('error', 'You must stop the peripheral first')}
+        <button data-testid={`disconnect-button-${_id}`} onClick={async () => !status ? await disconnectPeripheral(_id) : Notifications('error', 'You must stop the peripheral first')}
           className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300">Disconnect
         </button>
       </div>

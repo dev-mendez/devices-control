@@ -65,7 +65,7 @@ export const mockPeripheralData = {
         _id: '648de7587bb530564a21224e',
         uid: 12,
         vendor: '2',
-        status: true,
+        status: false,
         idMasterDevice: '648de71b7bb530564a212230',
         isDeleted: false,
         createdAt: '2023-06-17T17:03:20.837Z',

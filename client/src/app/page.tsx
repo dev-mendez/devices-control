@@ -44,7 +44,7 @@ const Home: FC = (): ReactNode => {
         </div>
       </div>
       <div className="w-full h-auto  flex flex-col  p-2  items-center">
-        {masterDevices.length
+        {masterDevices.length > 0
           ? masterDevices.map((mdevice, id) => (<MasterDevice key={id} props={{ ...mdevice, unmountDevice }} />))
           : (<NoDevice props={{ message: 'Master Device', toggleModal }}
           />)}
