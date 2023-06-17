@@ -6,6 +6,7 @@ import Modal from "@/components/common/CommonModal";
 import MasterDevice from "@/components/dispositives/MasterDevice";
 import { fetchMasterDevices, deleteDevice } from '@/API/HTTP_req'
 import type { IMasterDevice } from "@/types/types.td";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Home: FC = (): ReactNode => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +17,6 @@ const Home: FC = (): ReactNode => {
   const unmountDevice = (_id: string): Promise<void> => {
     return deleteDevice(_id, masterDevices, setMasterDevices)
   }
-
 
   useEffect(() => {
     fetchMasterDevices().then((res) => res.json()).then((data) => {
@@ -38,6 +38,8 @@ const Home: FC = (): ReactNode => {
       <div className="w-full h-auto  flex flex-col  p-2  items-center">
         {masterDevices.map((mdevice, id) => (<MasterDevice key={id} props={{ ...mdevice, unmountDevice }} />))}
         {masterDevices.length ? null : (<NoDevice props={{ message: 'Master Device', toggleModal }} />)}
+        <ToastContainer />
+
       </div>
     </div>
   );

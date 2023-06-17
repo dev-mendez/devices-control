@@ -1,8 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { Navbar } from '@/components/common/Navbar'
-//import { NotificationsProvider } from 'reapop'
-
+import { ToastContainer } from 'react-toastify';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -18,12 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <NotificationsProvider> */}
         <Navbar />
         <main className="min-h-screen items-center p-2 md:p-24">
           {children}
         </main >
-        {/* </NotificationsProvider> */}
       </body>
     </html>
   )
