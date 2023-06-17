@@ -1,3 +1,5 @@
+import { SetStateAction } from 'react';
+
 // Master Device Interfaces
 interface IIdentifiable {
   _id: string;
@@ -39,12 +41,12 @@ interface IPeripheralFormInput {
   vendor: string;
   status: boolean;
   uid: string;
-  idMasterDevice: string;
+  idMasterDevice: string | undefined;
 }
 
 interface PeripheralFormProps {
   props: {
-    _id: string;
+    _id?: string;
     toggleModal: () => void;
   };
 }
@@ -52,6 +54,17 @@ interface PeripheralFormProps {
 interface PeripheralsPageProps {
   params: {
     peripheral: string[];
+  };
+}
+
+interface ModalData {
+  props: {
+    isOpen: boolean;
+    headMessage: string;
+    toggleModal: () => void;
+    isMasterDeviceView: boolean;
+    _id?: string;
+    setMasterDevices?: SetStateAction<IMasterDevice[]> | unknown;
   };
 }
 
@@ -63,4 +76,5 @@ export type {
   PeripheralFormProps,
   PeripheralsPageProps,
   MasterDeviceFormProps,
+  ModalData,
 };

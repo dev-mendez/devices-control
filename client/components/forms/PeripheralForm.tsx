@@ -20,10 +20,10 @@ const PeripheralForm: FC<PeripheralFormProps> = ({ props }) => {
       ...data,
       idMasterDevice: _id,
     }
-    const res = await connectPeripheralReq(output)
 
+    const res = await connectPeripheralReq(output)
     if (res.status === 201) {
-      const data_ = await res.json()
+      console.log('HIT')
       toggleModal()
     }
   }

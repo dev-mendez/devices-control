@@ -16,7 +16,7 @@ interface Peripheral {
 
 export const Peripheral: FC<Peripheral> = ({ props }) => {
 
-  const { disconnectPeripheral, changePeripheralStatus, _id, uid, status, vendor } = props
+  const { disconnectPeripheral, changePeripheralStatus, _id, uid, status } = props
 
   return (
     <div data-testid={_id} className="w-full md:flex bg-slate-300 text-gray-500  p-2 my-1 shadow hover:shadow-gray-400">

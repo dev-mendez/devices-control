@@ -1,20 +1,9 @@
 'use client'
+import { ModalData } from "@/types/types.td";
 import MasterDeviceForm from "../forms/MasterDeviceForm";
 import PeripheralForm from "../forms/PeripheralForm";
 
-type Props = {
-  props: {
-    isOpen: boolean;
-    headMessage: string
-    toggleModal: () => void;
-    isMasterDeviceView: boolean;
-    _id: string;
-    setMasterDevices: any
-  }
-
-}
-
-const Modal = ({ props }: Props) => {
+const Modal = ({ props }: ModalData) => {
 
   const { _id, isOpen, toggleModal, isMasterDeviceView, headMessage, setMasterDevices } = props
   return (
@@ -29,7 +18,7 @@ const Modal = ({ props }: Props) => {
             </div>
             <div className="modal-content">
               {isMasterDeviceView ?
-                <MasterDeviceForm props={{ toggleModal, setMasterDevices }} /> :
+                <MasterDeviceForm props={{ setMasterDevices, toggleModal }} /> :
                 <PeripheralForm props={{ _id, toggleModal }} />}
             </div>
           </div>
