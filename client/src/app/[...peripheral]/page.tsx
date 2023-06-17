@@ -6,50 +6,11 @@ import { Peripheral } from "@/components/dispositives/Peripheral";
 import Link from "next/link";
 import Modal from "@/components/common/CommonModal";
 import { MdOutlineArrowBackIos } from 'react-icons/md'
-
-const fetchMasterDevice = async (_id: string) => await fetch(`http://localhost:3001/masterdevices/${_id}`);
-
-
-
-async function deletePeripheral(_id: string, peripherals: Array<IPeripheral>, setPeripherals: ([]) => void): Promise<void> {
-  const response = await fetch(`http://localhost:3001/peripheral/delete/${_id}`, { method: 'DELETE' });
-  if (!response.ok) {
-    throw new Error(`Error deleting device: ${response.status}`);
-  } else {
-    setPeripherals(peripherals.filter((peripheral) => peripheral._id !== _id))
-    alert('Deleted')
-  }
-
-}
-
-async function togglePeripheralStatus(_id: string, peripherals: Array<IPeripheral>, setPeripherals: ([]) => void, newStatus: boolean): Promise<void> {
-  const response = await fetch(`http://localhost:3001/peripheral/update/${_id}`,
-    {
-      method: 'PATCH', body: JSON.stringify({ status: newStatus }),
-      headers: { "Content-type": 'application/json' }
-    });
-
-  if (!response.ok) {
-    throw new Error(`Error updating this peripheral: ${response.status}`);
-  } else {
-    setPeripherals(peripherals.map((peripheral) => peripheral._id === _id ? { ...peripheral, status: newStatus } : peripheral)
-    )
-    alert('Updated')
-  }
-}
+import { fetchMasterDevice, deletePeripheral, togglePeripheralStatus } from '@/API/HTTP_req'
+import type { IPeripheral } from '@/types/types.td'
 
 interface PeripheralsPageProps {
   params: any
-}
-
-interface IPeripheral {
-  _id: string,
-  vendor: string,
-  status: boolean
-  uid: number,
-  newStatus?: boolean,
-  disconnectPeripheral: (_id: string) => Promise<void>
-  changePeripheralStatus: (_id: string, newStatus: boolean) => Promise<void>
 }
 
 const PeripheralsPage: FC<PeripheralsPageProps> = ({ params }) => {

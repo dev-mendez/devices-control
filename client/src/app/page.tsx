@@ -1,38 +1,15 @@
 'use client'
-
 import { FC } from "react";
 import { NoDevice } from "@/components/utils/EmptyTableStatus";
 import { useState, useEffect } from "react";
 import Modal from "@/components/common/CommonModal";
 import MasterDevice from "@/components/dispositives/MasterDevice";
-
-
-
-const fetchMasterDevices = async () => await fetch('http://localhost:3001/masterdevices');
-
-async function deleteDevice(_id: string, master_devices: Array<MasterDevice>, setMasterDevices: ([]) => void): Promise<void> {
-  const response = await fetch(`http://localhost:3001/masterdevices/delete/${_id}`, { method: 'DELETE' });
-  if (!response.ok) {
-    throw new Error(`Error deleting device: ${response.status}`);
-  } else {
-    setMasterDevices(master_devices.filter((device) => device._id !== _id))
-    alert('Deleted')
-  }
-}
-
-interface MasterDevice {
-  _id: string,
-  createdAt: string,
-  ipV4: string,
-  isDeleted: string,
-  name: string
-  peripherals: [],
-  serialNumber: string
-}
+import { fetchMasterDevices, deleteDevice } from '@/API/HTTP_req'
+import type { IMasterDevice } from "@/types/types.td";
 
 const Home: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [masterDevices, setMasterDevices] = useState<MasterDevice[]>([])
+  const [masterDevices, setMasterDevices] = useState<IMasterDevice[]>([])
 
   const toggleModal = () => setIsOpen(!isOpen);
 
@@ -43,8 +20,6 @@ const Home: FC = () => {
     fetchMasterDevices().then((res) => res.json()).then((data) => {
       setMasterDevices(data.master_devices)
     })
-
-
   }, [isOpen])
 
 

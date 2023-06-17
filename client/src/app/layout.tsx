@@ -1,7 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { Navbar } from '@/components/common/Navbar'
-import Modal from '@/components/common/CommonModal'
+//import { NotificationsProvider } from 'reapop'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,10 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* <NotificationsProvider> */}
         <Navbar />
         <main className="min-h-screen items-center p-2 md:p-24">
           {children}
         </main >
+        {/* </NotificationsProvider> */}
       </body>
     </html>
   )
