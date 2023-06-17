@@ -30,7 +30,6 @@ const PeripheralsPage: FC<PeripheralsPageProps> = ({ params }): ReactNode => {
       ))
   }, [isOpen])
 
-
   return (
     <div className=" bg-white text-gray-500  h-min min-w-25 pb-5 shadow-inner shadow-gray-300">
       <div className="px-2">

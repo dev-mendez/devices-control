@@ -41,7 +41,7 @@ interface IPeripheralFormInput {
   vendor: string;
   status: boolean;
   uid: string;
-  idMasterDevice: string | undefined;
+  idMasterDevice: string | unknown;
 }
 
 interface PeripheralFormProps {

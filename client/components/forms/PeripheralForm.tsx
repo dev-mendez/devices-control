@@ -23,8 +23,8 @@ const PeripheralForm: FC<PeripheralFormProps> = ({ props }) => {
 
     const res = await connectPeripheralReq(output)
     if (res.status === 201) {
-      console.log('HIT')
       toggleModal()
+      // console.log('HITTED!')
     }
   }
 

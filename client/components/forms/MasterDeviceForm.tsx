@@ -3,7 +3,6 @@ import { FC } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
 import type { MasterDeviceFormProps, IMasterDeviceFormInput } from '@/types/types.td'
 import { mountDeviceReq } from '@/API/HTTP_req'
-import { Notifications } from '@/components/common/Notifications';
 import type { IMasterDevice } from "@/types/types.td";
 
 
