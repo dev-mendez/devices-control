@@ -1,4 +1,9 @@
-import type { IMasterDevice, IPeripheral } from '@/types/types.td';
+import type {
+  IMasterDevice,
+  IPeripheral,
+  IPeripheralFormInput,
+  IMasterDeviceFormInput,
+} from '@/types/types.td';
 
 const API = 'http://localhost:3001';
 
@@ -40,6 +45,16 @@ async function deletePeripheral(
   }
 }
 
+const connectPeripheralReq = async (data: IPeripheralFormInput) => {
+  return await fetch(`${API}/peripheral/create`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-type': 'application/json',
+    },
+  });
+};
+
 async function togglePeripheralStatus(
   _id: string,
   peripherals: Array<IPeripheral>,
@@ -65,10 +80,22 @@ async function togglePeripheralStatus(
   }
 }
 
+const mountDeviceReq = async (data: IMasterDeviceFormInput) => {
+  return await fetch(`${API}/masterdevices/create`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-type': 'application/json',
+    },
+  });
+};
+
 export {
   fetchMasterDevices,
   deleteDevice,
   fetchMasterDevice,
   deletePeripheral,
+  connectPeripheralReq,
   togglePeripheralStatus,
+  mountDeviceReq,
 };

@@ -1,38 +1,15 @@
 
 import { FC } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
-
-interface MasterDeviceFormProps {
-  props: {
-    toggleModal: () => void
-  }
-}
-
-interface IFormInput {
-  serialNumber: string
-  name: string
-  ipV4: string
-}
-
-const API = 'http://localhost:3001'
-
-
-const mountDeviceReq = async (data: IFormInput) => {
-  return await fetch(`${API}/masterdevices/create`, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-type": 'application/json'
-    }
-  })
-}
+import type { MasterDeviceFormProps, IMasterDeviceFormInput } from '@/types/types.td'
+import { mountDeviceReq } from '@/API/HTTP_req'
 
 const MasterDeviceForm: FC<MasterDeviceFormProps> = ({ props }) => {
 
   const { toggleModal } = props
 
-  const { register, handleSubmit } = useForm<IFormInput>()
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const { register, handleSubmit } = useForm<IMasterDeviceFormInput>()
+  const onSubmit: SubmitHandler<IMasterDeviceFormInput> = async (data) => {
     const res = await mountDeviceReq(data)
 
     if (res.status === 200) {

@@ -1,5 +1,9 @@
-interface IMasterDevice {
+// Master Device Interfaces
+interface IIdentifiable {
   _id: string;
+}
+
+interface IMasterDevice extends IIdentifiable {
   createdAt: string;
   ipV4: string;
   isDeleted: string;
@@ -8,8 +12,20 @@ interface IMasterDevice {
   serialNumber: string;
 }
 
-interface IPeripheral {
-  _id: string;
+interface IMasterDeviceFormInput {
+  serialNumber: string;
+  name: string;
+  ipV4: string;
+}
+
+interface MasterDeviceFormProps {
+  props: {
+    toggleModal: () => void;
+  };
+}
+
+// Peripheral Interfaces
+interface IPeripheral extends IIdentifiable {
   vendor: string;
   status: boolean;
   uid: number;
@@ -18,4 +34,32 @@ interface IPeripheral {
   changePeripheralStatus: (_id: string, newStatus: boolean) => Promise<void>;
 }
 
-export type { IMasterDevice, IPeripheral };
+interface IPeripheralFormInput {
+  vendor: string;
+  status: boolean;
+  uid: string;
+  idMasterDevice: string;
+}
+
+interface PeripheralFormProps {
+  props: {
+    _id: string;
+    toggleModal: () => void;
+  };
+}
+
+interface PeripheralsPageProps {
+  params: {
+    peripheral: string[];
+  };
+}
+
+export type {
+  IMasterDevice,
+  IPeripheral,
+  IMasterDeviceFormInput,
+  IPeripheralFormInput,
+  PeripheralFormProps,
+  PeripheralsPageProps,
+  MasterDeviceFormProps,
+};

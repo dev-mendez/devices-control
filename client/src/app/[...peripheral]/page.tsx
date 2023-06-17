@@ -7,22 +7,24 @@ import Link from "next/link";
 import Modal from "@/components/common/CommonModal";
 import { MdOutlineArrowBackIos } from 'react-icons/md'
 import { fetchMasterDevice, deletePeripheral, togglePeripheralStatus } from '@/API/HTTP_req'
-import type { IPeripheral } from '@/types/types.td'
+import type { IPeripheral, PeripheralsPageProps } from '@/types/types.td'
 
-interface PeripheralsPageProps {
-  params: any
-}
+
 
 const PeripheralsPage: FC<PeripheralsPageProps> = ({ params }) => {
-
   const [isOpen, setIsOpen] = useState(false);
   const [perihperals, setPeripherals] = useState<IPeripheral[]>([])
   const _id = params.peripheral[1]
 
-  const toggleModal = () => setIsOpen(!isOpen);
+  console.log(params)
 
-  const disconnectPeripheral = (_id: string): Promise<void> => deletePeripheral(_id, perihperals, setPeripherals)
-  const changePeripheralStatus = (_id: string, newStatus: boolean): Promise<void> => togglePeripheralStatus(_id, perihperals, setPeripherals, newStatus)
+  const toggleModal = (): void => setIsOpen(!isOpen);
+
+  const disconnectPeripheral = (_id: string): Promise<void> =>
+    deletePeripheral(_id, perihperals, setPeripherals)
+
+  const changePeripheralStatus = (_id: string, newStatus: boolean): Promise<void> =>
+    togglePeripheralStatus(_id, perihperals, setPeripherals, newStatus)
 
 
   useEffect(() => {

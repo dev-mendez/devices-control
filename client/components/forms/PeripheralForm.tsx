@@ -1,54 +1,27 @@
 import { FC } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
-
-interface PeripheralFormProps {
-  props: {
-    _id: string
-    toggleModal: () => void
-  }
-}
-
-interface IFormInput {
-  uid: string
-  vendor: string
-  status: boolean
-  idMasterDevice: string
-
-}
-
-const API = 'http://localhost:3001'
+import { connectPeripheralReq } from '@/API/HTTP_req'
+import type { IPeripheralFormInput, PeripheralFormProps } from '@/types/types.td'
 
 
-const connectPeripheralReq = async (data: IFormInput) => {
-  return await fetch(`${API}/peripheral/create`, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-type": 'application/json'
-    }
-  })
-}
 
 const PeripheralForm: FC<PeripheralFormProps> = ({ props }) => {
-
   const { _id, toggleModal } = props
 
-  const { register, handleSubmit } = useForm<IFormInput>({
+  const { register, handleSubmit } = useForm<IPeripheralFormInput>({
     defaultValues: {
       idMasterDevice: _id
     },
   })
 
+  const onSubmit: SubmitHandler<IPeripheralFormInput> = async (data) => {
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-
-    //Add  -id  to the data
     const output = {
       ...data,
       idMasterDevice: _id,
     }
     const res = await connectPeripheralReq(output)
-    console.log(res.status)
+
     if (res.status === 201) {
       const data_ = await res.json()
       toggleModal()
