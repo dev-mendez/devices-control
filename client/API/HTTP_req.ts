@@ -4,6 +4,7 @@ import type {
   IPeripheralFormInput,
   IMasterDeviceFormInput,
 } from '@/types/types.td';
+import { Notifications } from '@/components/common/Notifications';
 
 const API = 'http://localhost:3001';
 
@@ -22,7 +23,7 @@ async function deleteDevice(
     throw new Error(`Error deleting device: ${response.status}`);
   } else {
     setMasterDevices(master_devices.filter((device) => device._id !== _id));
-    alert('Deleted');
+    Notifications('success', 'Unmounted');
   }
 }
 

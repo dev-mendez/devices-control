@@ -21,6 +21,7 @@ interface IMasterDeviceFormInput {
 interface MasterDeviceFormProps {
   props: {
     toggleModal: () => void;
+    setMasterDevices: any;
   };
 }
 

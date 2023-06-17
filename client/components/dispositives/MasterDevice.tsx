@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Link from "next/link";
 import { GiWifiRouter } from 'react-icons/gi'
+import { Notifications } from '@/components/common/Notifications';
 
 interface MasterDeviceProps {
   props: {
@@ -15,7 +16,7 @@ const MasterDevice: FC<MasterDeviceProps> = ({ props }) => {
   const { name, ipV4, peripherals, unmountDevice, _id } = props
 
   return (
-    <div className="w-full md:flex bg-slate-300 text-gray-500  p-2 my-1 shadow hover:shadow-gray-400">
+    <div data-testid={_id} className="w-full md:flex bg-slate-300 text-gray-500  p-2 my-1 shadow hover:shadow-gray-400">
       <div className="self-center align-middle inline-block p-1">
         <GiWifiRouter size={30} />
       </div>
@@ -37,7 +38,9 @@ const MasterDevice: FC<MasterDeviceProps> = ({ props }) => {
         <Link href={`perihperal/${_id}`}>
           <button className="px-2 border border-gray-200 bg-green-100 hover:bg-green-300">Peripherals</button>
         </Link>
-        <button onClick={async () => !peripherals.length ? await unmountDevice(_id) : alert('You must disconnect all peripherals first')
+        <button 
+        data-testid={`${_id}-delete-device-button`} 
+        onClick={async () => !peripherals.length ? await unmountDevice(_id) : Notifications('error', 'You must disconnect all peripherals first')
         } className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300">Unmount</button>
       </div>
     </div>
