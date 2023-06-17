@@ -8,18 +8,19 @@ type Props = {
     headMessage: string
     toggleModal: () => void;
     isMasterDeviceView: boolean;
-    _id: string
+    _id: string;
+    setMasterDevices: any
   }
 
 }
 
 const Modal = ({ props }: Props) => {
 
-  const { _id, isOpen, toggleModal, isMasterDeviceView, headMessage } = props
+  const { _id, isOpen, toggleModal, isMasterDeviceView, headMessage, setMasterDevices } = props
   return (
     <div>
       {isOpen && (
-        <>
+        <div data-testid="create-dialog">
           <div className="modal-overlay" onClick={toggleModal}></div>
           <div className="modal min-w-fit max-w-full">
             <div className="w-full pb-2 border-b">
@@ -28,11 +29,11 @@ const Modal = ({ props }: Props) => {
             </div>
             <div className="modal-content">
               {isMasterDeviceView ?
-                <MasterDeviceForm props={{ toggleModal }} /> :
+                <MasterDeviceForm props={{ toggleModal, setMasterDevices }} /> :
                 <PeripheralForm props={{ _id, toggleModal }} />}
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
