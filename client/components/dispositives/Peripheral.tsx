@@ -19,7 +19,7 @@ export const Peripheral: FC<Peripheral> = ({ props }) => {
   const { disconnectPeripheral, changePeripheralStatus, _id, uid, status, vendor } = props
 
   return (
-    <div className="w-full md:flex bg-slate-300 text-gray-500  p-2 my-1 shadow hover:shadow-gray-400">
+    <div data-testid={_id} className="w-full md:flex bg-slate-300 text-gray-500  p-2 my-1 shadow hover:shadow-gray-400">
       <div className="self-center align-middle inline-block p-1"><MdOutlineDevicesOther size={30} /></div>
       <div className="inline-block flex-row mx-5 space-x-2 md:space-x-4  hover:text-gray-600  md:flex font-mono align-middle">
         <div className="sm:flex-column inline-block md:flex self-center">
