@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { MdOutlineDevicesOther } from "react-icons/md";
+import { Notifications } from "../common/Notifications";
 
 interface Peripheral {
   props: {
@@ -28,8 +29,8 @@ export const Peripheral: FC<Peripheral> = ({ props }) => {
         <div className="sm:flex-column inline-block md:flex">
           <div className="font-bold self-center"><u>Status</u>: </div>
           <div className=" self-center">{status ? (
-            <p className=" text-green-500">Runing...</p>) :
-            <p className="text-gray-400">Stoped.</p>}
+            <p className=" text-green-500">Running...</p>) :
+            <p className="text-gray-400">Stopped.</p>}
           </div>
         </div>
       </div>
@@ -37,8 +38,8 @@ export const Peripheral: FC<Peripheral> = ({ props }) => {
         <button onClick={async () => await changePeripheralStatus(_id, !status)}
           className="px-2 border border-gray-200 bg-green-100 hover:bg-green-300">{status ? 'Stop' : 'Run'}
         </button>
-        <button onClick={async () => !status ? await disconnectPeripheral(_id) : alert('You must stop the peripheral first')}
-          className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300">Disconect
+        <button onClick={async () => !status ? await disconnectPeripheral(_id) : Notifications('error', 'You must stop the peripheral first')}
+          className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300">Disconnect
         </button>
       </div>
     </div >

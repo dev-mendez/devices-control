@@ -6,7 +6,6 @@ import Modal from "@/components/common/CommonModal";
 import MasterDevice from "@/components/dispositives/MasterDevice";
 import { fetchMasterDevices, deleteDevice } from '@/API/HTTP_req'
 import type { IMasterDevice } from "@/types/types.td";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Home: FC = (): ReactNode => {
@@ -29,12 +28,12 @@ const Home: FC = (): ReactNode => {
 
   return (
     <div className=" bg-white text-gray-500  h-min min-w-25 pb-5 shadow-inner shadow-gray-300 ">
-      <Modal props={{ 
-        isOpen, toggleModal, 
-        isMasterDeviceView: true, 
-        headMessage: 'Mount a new Master-Device', 
+      <Modal props={{
+        isOpen, toggleModal,
+        isMasterDeviceView: true,
+        headMessage: 'Mount a new Master-Device',
         setMasterDevices
-        }} 
+      }}
       />
       <div className="px-2">
         <div className="flex justify-between p-2  text-2xl  border-b-2 shadow shadow-gray-200  border-gray-600">
@@ -47,8 +46,6 @@ const Home: FC = (): ReactNode => {
       <div className="w-full h-auto  flex flex-col  p-2  items-center">
         {masterDevices.map((mdevice, id) => (<MasterDevice key={id} props={{ ...mdevice, unmountDevice }} />))}
         {masterDevices.length ? null : (<NoDevice props={{ message: 'Master Device', toggleModal }} />)}
-        <ToastContainer />
-
       </div>
     </div>
   );

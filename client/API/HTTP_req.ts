@@ -20,10 +20,11 @@ async function deleteDevice(
   });
 
   if (!response.ok) {
-    throw new Error(`Error deleting device: ${response.status}`);
+    // throw new Error(`Error unmounting this device!: ${response.status}`);
+    Notifications('error', `${response.status}`);
   } else {
     setMasterDevices(master_devices.filter((device) => device._id !== _id));
-    Notifications('success', 'Unmounted');
+    Notifications('success', 'Succesfully unmounted!');
   }
 }
 
@@ -40,20 +41,30 @@ async function deletePeripheral(
   });
 
   if (!response.ok) {
-    throw new Error(`Error deleting device: ${response.status}`);
+    // throw new Error(`Error deleting device: ${response.status}`);
+    Notifications('error', `${response.status}`);
   } else {
     setPeripherals(peripherals.filter((peripheral) => peripheral._id !== _id));
+    Notifications('success', `Succesfully disconnected!`);
   }
 }
 
 const connectPeripheralReq = async (data: IPeripheralFormInput) => {
-  return await fetch(`${API}/peripheral/create`, {
+  const response = await fetch(`${API}/peripheral/create`, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
       'Content-type': 'application/json',
     },
   });
+  if (!response.ok) {
+    // throw new Error(`Error deleting device: ${response.status}`);
+    Notifications('error', `${response.status}`);
+  } else {
+    Notifications('success', `Peripheral connected!`);
+  }
+
+  return response;
 };
 
 async function togglePeripheralStatus(
@@ -69,7 +80,8 @@ async function togglePeripheralStatus(
   });
 
   if (!response.ok) {
-    throw new Error(`Error updating this peripheral: ${response.status}`);
+    // throw new Error(`Error updating this peripheral: ${response.status}`);
+    Notifications('error', `${response.status}`);
   } else {
     setPeripherals(
       peripherals.map((peripheral) =>
@@ -78,17 +90,28 @@ async function togglePeripheralStatus(
           : peripheral
       )
     );
+    Notifications(
+      'success',
+      `Peripheral ${!newStatus ? 'was Stopped!' : 'is Running!'}`
+    );
   }
 }
 
 const mountDeviceReq = async (data: IMasterDeviceFormInput) => {
-  return await fetch(`${API}/masterdevices/create`, {
+  const response = await fetch(`${API}/masterdevices/create`, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
       'Content-type': 'application/json',
     },
   });
+  if (!response.ok) {
+    // throw new Error(`Error deleting device: ${response.status}`);
+    Notifications('error', `${response.status}`);
+  } else {
+    Notifications('success', `Master-Device is Mounted!`);
+  }
+  return response;
 };
 
 export {

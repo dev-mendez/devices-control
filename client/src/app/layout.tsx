@@ -2,6 +2,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import { Navbar } from '@/components/common/Navbar'
 const inter = Inter({ subsets: ['latin'] })
+import { ToastContainer } from 'react-toastify';
 
 export const metadata = {
   title: 'Create Next App',
@@ -20,6 +21,17 @@ export default function RootLayout({
         <main className="min-h-screen items-center p-2 md:p-24">
           {children}
         </main >
+        <ToastContainer
+          position="bottom-right"
+          autoClose={1500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light" />
       </body>
     </html>
   )
