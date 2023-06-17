@@ -20,7 +20,7 @@ const MasterDevice: FC<MasterDeviceProps> = ({ props }) => {
         <GiWifiRouter size={30} />
       </div>
       <div className="inline-block flex-row mx-5 space-x-2 md:space-x-4  hover:text-gray-600  md:flex font-mono">
-        <div className="sm:flex-column inline-block md:flex justify-center align-middle">
+        <div className="sm:flex-column inline-block md:flex">
           <div className="font-bold self-center"><u>Name</u>: </div>
           <div className="self-center">{name}</div>
         </div>
@@ -33,7 +33,7 @@ const MasterDevice: FC<MasterDeviceProps> = ({ props }) => {
           <div className=" self-center">{peripherals.length}</div>
         </div>
       </div>
-      <div className="inline-block ml-auto  align-middle self-center space-x-2 md:space-x-4">
+      <div className="inline-block ml-auto float-right  align-middle self-center space-x-2 md:space-x-4">
         <Link href={`perihperal/${_id}`}>
           <button className="px-2 border border-gray-200 bg-green-100 hover:bg-green-300">Peripherals</button>
         </Link>

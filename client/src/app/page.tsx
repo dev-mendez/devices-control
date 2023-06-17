@@ -1,5 +1,5 @@
 'use client'
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { NoDevice } from "@/components/utils/EmptyTableStatus";
 import { useState, useEffect } from "react";
 import Modal from "@/components/common/CommonModal";
@@ -7,16 +7,19 @@ import MasterDevice from "@/components/dispositives/MasterDevice";
 import { fetchMasterDevices, deleteDevice } from '@/API/HTTP_req'
 import type { IMasterDevice } from "@/types/types.td";
 
-const Home: FC = () => {
+const Home: FC = (): ReactNode => {
   const [isOpen, setIsOpen] = useState(false);
   const [masterDevices, setMasterDevices] = useState<IMasterDevice[]>([])
 
   const toggleModal = () => setIsOpen(!isOpen);
 
-  const unmountDevice = (_id: string): Promise<void> => deleteDevice(_id, masterDevices, setMasterDevices)
+  const unmountDevice = (_id: string): Promise<void> => {
+    return deleteDevice(_id, masterDevices, setMasterDevices)
+  }
+
 
   useEffect(() => {
-    fetchMasterDevices().then((res) => res.json()).then((data) => { 
+    fetchMasterDevices().then((res) => res.json()).then((data) => {
       setMasterDevices(data.master_devices)
     })
   }, [isOpen])

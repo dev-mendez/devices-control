@@ -33,7 +33,7 @@ export const Peripheral: FC<Peripheral> = ({ props }) => {
           </div>
         </div>
       </div>
-      <div className="inline-block ml-auto  align-middle self-center space-x-2 md:space-x-4">
+      <div className="inline-block ml-auto float-right  align-middle self-center space-x-2 md:space-x-4">
         <button onClick={async () => await changePeripheralStatus(_id, !status)}
           className="px-2 border border-gray-200 bg-green-100 hover:bg-green-300">{status ? 'Stop' : 'Run'}
         </button>
