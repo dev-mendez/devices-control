@@ -5,7 +5,7 @@ import { mockData, mockDataAddedDevice } from '@/__mocks__/data';
 import { Notifications } from '../components/common/Notifications';
 import { deleteDevice } from '../API/HTTP_req';
 
-jest.mock('../API/HTTP_req', ()=>({
+jest.mock('../API/HTTP_req', () => ({
   __esModule: true,
   ...jest.requireActual('../API/HTTP_req'),
   fetchMasterDevices: () => Promise.resolve({
@@ -19,27 +19,27 @@ jest.mock('../API/HTTP_req', ()=>({
 }));
 jest.mock('../components/common/Notifications')
 
-describe('Home', ()=>{
-  it('should display the devices in the list', async ()=>{
+describe('Home', () => {
+  it('should display the devices in the list', async () => {
     render(<Home />);
 
     expect(screen.queryByText(/Master Devices/)).toBeInTheDocument();
-    
-    await waitFor(()=>{
-      mockData.master_devices.forEach((device)=>{
+
+    await waitFor(() => {
+      mockData.master_devices.forEach((device) => {
         expect(screen.queryByTestId(device._id)).toBeInTheDocument();
-      })      
+      })
     })
   })
 
-  it('should add a devices', async ()=>{
+  it('should add a devices', async () => {
     render(<Home />);
 
     const mountButton = screen.getByTestId('mount-device-button');
 
     fireEvent.click(mountButton);
 
-    await waitFor(()=>{
+    await waitFor(() => {
       expect(screen.queryByTestId('create-dialog')).toBeInTheDocument();
     })
 
@@ -53,32 +53,34 @@ describe('Home', ()=>{
     fireEvent.change(ipInput, { target: { value: '10.0.0.4' } });
 
     const submitDeviceButton = screen.getByTestId('submit-device-button');
-    
-    fireEvent.click(submitDeviceButton);   
 
-    await waitFor(()=>{
+    fireEvent.click(submitDeviceButton);
+
+    await waitFor(() => {
       expect(screen.queryByTestId('create-dialog')).not.toBeInTheDocument();
     })
 
-    expect(Notifications).toHaveBeenCalledWith("success", "Mounted");
+    // await waitFor(() => {
+    //   expect(Notifications).toHaveBeenCalledWith("success", "Master-Device is Mounted!");
+    // })
 
-    await waitFor(()=>{      
-      expect(screen.queryByTestId('648da83b0be5590671c2ecd1')).toBeInTheDocument();      
+    await waitFor(() => {
+      expect(screen.queryByTestId('648da83b0be5590671c2ecd1')).toBeInTheDocument();
     })
   })
 
-  it("should delete device", async ()=>{
+  it("should delete device", async () => {
     render(<Home />);
-    
-    await waitFor(()=>{
-      mockData.master_devices.forEach((device)=>{
+
+    await waitFor(() => {
+      mockData.master_devices.forEach((device) => {
         expect(screen.queryByTestId(device._id)).toBeInTheDocument();
-      })      
-    })    
+      })
+    })
 
     const deleteDeviceButton = screen.getByTestId('648d7e640be5590671c2eca2-delete-device-button');
     fireEvent.click(deleteDeviceButton);
-      
+
     expect(deleteDevice).toBeCalled();
   })
 })

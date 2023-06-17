@@ -50,12 +50,11 @@ const PeripheralsPage: FC<PeripheralsPageProps> = ({ params }): ReactNode => {
       </div>
       <div className="w-full h-auto flex flex-col p-2 items-center">
         <Modal props={{ isOpen, toggleModal, isMasterDeviceView: false, _id, headMessage: 'Connect a new Peripheral on this device' }} />
-        {perihperals.map((perihperal, id) => (
-          <Peripheral key={id} props={{ ...perihperal, disconnectPeripheral, changePeripheralStatus, toggleModal }} />)
-        )}
-        {perihperals.length ?
-          null :
-          (<NoDevice props={{ message: 'Peripherals', toggleModal }} />)
+        {perihperals.length
+          ? perihperals.map((perihperal, id) => (
+            <Peripheral key={id} props={{ ...perihperal, disconnectPeripheral, changePeripheralStatus, toggleModal }} />)
+          )
+          : (<NoDevice props={{ message: 'Peripherals', toggleModal }} />)
         }
       </div>
     </div>
