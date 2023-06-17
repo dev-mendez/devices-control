@@ -50,6 +50,7 @@ export class MasterDeviceController {
         created_master_device,
       });
     } catch {
+      
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         message: 'Error creating this device!',
       });
@@ -71,12 +72,14 @@ export class MasterDeviceController {
           .status(HttpStatus.GONE)
           .json({ message: 'This device has gone!' });
       } else {
+
         return res.status(HttpStatus.OK).json({
           message: 'Device successfully fetched!',
           fetched_device,
         });
       }
     } catch {
+
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         message: 'Error creating this device!',
       });
@@ -98,18 +101,21 @@ export class MasterDeviceController {
           .status(HttpStatus.GONE)
           .json({ message: 'Ups! This device was already deleted!' });
       } else if (fetched_device.peripherals.length > 0) {
+
         return res.status(HttpStatus.CONFLICT).json({
           message: 'This device has peripherals, please delete them first!',
         });
       } else {
         const deleted_master_device =
           await this.masterDeviceService.deleteMasterDevice(id);
+
         return res.status(HttpStatus.OK).json({
           message: 'This device was successfully deleted!',
           deleted_master_device,
         });
       }
     } catch {
+
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         message: 'Error deleting this device!',
       });
