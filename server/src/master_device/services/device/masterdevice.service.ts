@@ -12,9 +12,12 @@ export class MasterDeviceService {
   ) {}
 
   async getMasterDevices(): Promise<Device[]> {
-    const allMasterDevices = await this.masterDeviceModel.find({
-      isDeleted: false,
-    });
+    const allMasterDevices = await this.masterDeviceModel
+      .find({
+        isDeleted: false,
+      })
+      .populate({ path: 'peripherals', match: { isDeleted: false } });
+
     return allMasterDevices;
   }
 
@@ -30,6 +33,7 @@ export class MasterDeviceService {
     createMasterDeviceDto: CreateMasterDeviceDto,
   ): Promise<Device> {
     const newMasterDevice = new this.masterDeviceModel(createMasterDeviceDto);
+
     return await newMasterDevice.save();
   }
 
@@ -40,6 +44,7 @@ export class MasterDeviceService {
         path: 'peripherals',
         match: { isDeleted: false },
       });
+
     return deleteMasterDevice;
   }
 
@@ -53,6 +58,7 @@ export class MasterDeviceService {
         path: 'peripherals',
         match: { isDeleted: false },
       });
+
     return updatedMasterDevice;
   }
 
@@ -63,6 +69,7 @@ export class MasterDeviceService {
         path: 'peripherals',
         match: { isDeleted: false },
       });
+
     return foundMasterDevice;
   }
 
@@ -74,6 +81,7 @@ export class MasterDeviceService {
         match: { isDeleted: false },
       });
     if (masterDevice) return masterDevice.peripherals.length;
+
     return 0;
   }
 
@@ -86,6 +94,7 @@ export class MasterDeviceService {
         path: 'peripheral',
         match: { isDeleted: false },
       });
+
     return masterDeviceBySerialNumber;
   }
 }

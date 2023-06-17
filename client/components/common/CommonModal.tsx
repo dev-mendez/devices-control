@@ -29,7 +29,7 @@ const Modal = ({ props }: Props) => {
             <div className="modal-content">
               {isMasterDeviceView ?
                 <MasterDeviceForm props={{ toggleModal }} /> :
-                <PeripheralForm props={{ _id }} />}
+                <PeripheralForm props={{ _id, toggleModal }} />}
             </div>
           </div>
         </>

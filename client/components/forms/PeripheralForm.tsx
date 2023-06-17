@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 interface PeripheralFormProps {
   props: {
     _id: string
+    toggleModal: () => void
   }
 }
 
@@ -12,6 +13,7 @@ interface IFormInput {
   vendor: string
   status: boolean
   idMasterDevice: string
+
 }
 
 const API = 'http://localhost:3001'
@@ -29,7 +31,7 @@ const connectPeripheralReq = async (data: IFormInput) => {
 
 const PeripheralForm: FC<PeripheralFormProps> = ({ props }) => {
 
-  const { _id } = props
+  const { _id, toggleModal } = props
 
   const { register, handleSubmit } = useForm<IFormInput>({
     defaultValues: {
@@ -49,6 +51,7 @@ const PeripheralForm: FC<PeripheralFormProps> = ({ props }) => {
     console.log(res.status)
     if (res.status === 201) {
       const data_ = await res.json()
+      toggleModal()
       alert('Connected')
     } else {
       alert('Error conecting device')
