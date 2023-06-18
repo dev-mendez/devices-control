@@ -7,6 +7,7 @@ import {
   HttpStatus,
   Body,
   Param,
+  ConflictException,
 } from '@nestjs/common';
 
 import { CreateMasterDeviceDto } from '../../dto/createmasterdevice.dto';
@@ -45,12 +46,17 @@ export class MasterDeviceController {
         await this.masterDeviceService.createMasterDevice(
           createMasterDeviceDto,
         );
+
       return res.status(HttpStatus.OK).json({
         message: 'Device successfully created!',
         created_master_device,
       });
-    } catch {
-      
+    } catch (error) {
+      if (error.code === 11000) {
+        throw new ConflictException(
+          'Serial Nº or IP must be unique, please double check!',
+        );
+      }
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         message: 'Error creating this device!',
       });
@@ -72,14 +78,12 @@ export class MasterDeviceController {
           .status(HttpStatus.GONE)
           .json({ message: 'This device has gone!' });
       } else {
-
         return res.status(HttpStatus.OK).json({
           message: 'Device successfully fetched!',
           fetched_device,
         });
       }
     } catch {
-
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         message: 'Error creating this device!',
       });
@@ -101,7 +105,6 @@ export class MasterDeviceController {
           .status(HttpStatus.GONE)
           .json({ message: 'Ups! This device was already deleted!' });
       } else if (fetched_device.peripherals.length > 0) {
-
         return res.status(HttpStatus.CONFLICT).json({
           message: 'This device has peripherals, please delete them first!',
         });
@@ -115,7 +118,6 @@ export class MasterDeviceController {
         });
       }
     } catch {
-
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         message: 'Error deleting this device!',
       });

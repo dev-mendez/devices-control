@@ -13,9 +13,7 @@ export class MasterDeviceService {
 
   async getMasterDevices(): Promise<Device[]> {
     const allMasterDevices = await this.masterDeviceModel
-      .find({
-        isDeleted: false,
-      })
+      .find({ isDeleted: false })
       .populate({ path: 'peripherals', match: { isDeleted: false } });
 
     return allMasterDevices;
@@ -37,15 +35,9 @@ export class MasterDeviceService {
     return await newMasterDevice.save();
   }
 
-  async deleteMasterDevice(id: string): Promise<Device> {
-    const deleteMasterDevice = await this.masterDeviceModel
-      .findByIdAndUpdate(id, { isDeleted: true })
-      .populate({
-        path: 'peripherals',
-        match: { isDeleted: false },
-      });
-
-    return deleteMasterDevice;
+  //delete masterdevice withouth logical delete
+  async deleteMasterDevice(_id: string): Promise<void> {
+    await this.masterDeviceModel.findByIdAndDelete(_id);
   }
 
   async updateMasterDevice(
@@ -65,10 +57,7 @@ export class MasterDeviceService {
   async findById(idMasterDevice: string): Promise<Device> {
     const foundMasterDevice = await this.masterDeviceModel
       .findById(idMasterDevice)
-      .populate({
-        path: 'peripherals',
-        match: { isDeleted: false },
-      });
+      .populate({ path: 'peripherals', match: { isDeleted: false } });
 
     return foundMasterDevice;
   }
@@ -76,24 +65,17 @@ export class MasterDeviceService {
   async getAmountPeripheral(idMasterDevice: string): Promise<number> {
     const masterDevice = await this.masterDeviceModel
       .findById(idMasterDevice)
-      .populate({
-        path: 'peripherals',
-        match: { isDeleted: false },
-      });
+      .populate({ path: 'peripherals', match: { isDeleted: false } });
+
     if (masterDevice) return masterDevice.peripherals.length;
 
     return 0;
   }
 
   async findBySN(serialNumber: string): Promise<Device> {
-    const masterDeviceBySerialNumber = await this.masterDeviceModel
-      .findOne({
-        serialNumber,
-      })
-      .populate({
-        path: 'peripheral',
-        match: { isDeleted: false },
-      });
+    const masterDeviceBySerialNumber = await this.masterDeviceModel.findOne({
+      serialNumber: serialNumber,
+    });
 
     return masterDeviceBySerialNumber;
   }

@@ -20,7 +20,7 @@ export class MasterDevice {
   name: string;
 
   @Prop({
-    // unique: true, 
+    unique: true,
     trim: true,
     required: true,
   })

@@ -1,10 +1,8 @@
-import { IsNotEmpty, IsString, Matches, Validate } from 'class-validator';
-import { SerialNumberIsUnique } from './validations/uniqueserialnumber';
+import { IsNotEmpty, IsString, Matches } from 'class-validator';
 
 export class CreateMasterDeviceDto {
   @IsNotEmpty()
   @IsString()
-  @Validate(SerialNumberIsUnique)
   serialNumber: string;
 
   @IsNotEmpty()
