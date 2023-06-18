@@ -31,22 +31,12 @@ async function deleteDevice(
 const fetchMasterDevice = async (_id: string) =>
   await fetch(`${API}/masterdevices/${_id} `);
 
-async function deletePeripheral(
-  _id: string,
-  peripherals: Array<IPeripheral>,
-  setPeripherals: ([]) => void
-): Promise<void> {
-  const response = await fetch(`${API}/peripheral/delete/${_id}`, {
-    method: 'DELETE',
-  });
-
-  if (!response.ok) {
-    // throw new Error(`Error deleting device: ${response.status}`);
-    Notifications('error', `${response.status}`);
-  } else {
-    setPeripherals(peripherals.filter((peripheral) => peripheral._id !== _id));
-    Notifications('success', `Succesfully disconnected!`);
-  }
+function deletePeripheral(
+  _id: string,  
+): Promise<Response> {
+  return fetch(`${API}/peripheral/delete/${_id}`, {
+      method: 'DELETE',
+    });
 }
 
 const connectPeripheralReq = async (data: IPeripheralFormInput) => {
