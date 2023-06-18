@@ -4,11 +4,13 @@ import type {
   IPeripheralFormInput,
   IMasterDeviceFormInput,
 } from '@/types/types.td';
+
 import { Notifications } from '@/components/common/Notifications';
 
 const API = 'http://localhost:3001';
 
-const fetchMasterDevices = async () => await fetch(`${API}/masterdevices`);
+const fetchMasterDevices = async (): Promise<Response> =>
+  await fetch(`${API}/masterdevices`);
 
 async function deleteDevice(
   _id: string,
@@ -20,8 +22,8 @@ async function deleteDevice(
   });
 
   if (!response.ok) {
-    // throw new Error(`Error unmounting this device!: ${response.status}`);
     Notifications('error', `${response.status}`);
+    throw new Error(`Error unmounting this device!: ${response}`);
   } else {
     setMasterDevices(master_devices.filter((device) => device._id !== _id));
     Notifications('success', 'Succesfully unmounted!');
@@ -31,15 +33,13 @@ async function deleteDevice(
 const fetchMasterDevice = async (_id: string) =>
   await fetch(`${API}/masterdevices/${_id} `);
 
-function deletePeripheral(
-  _id: string,  
-): Promise<Response> {
-  return fetch(`${API}/peripheral/delete/${_id}`, {
-      method: 'DELETE',
-    });
+function deletePeripheral(_id: string): Promise<Response> {
+  return fetch(`${API}/peripheral/delete/${_id}`, { method: 'DELETE' });
 }
 
-const connectPeripheralReq = async (data: IPeripheralFormInput) => {
+const connectPeripheralReq = async (
+  data: IPeripheralFormInput
+): Promise<Response> => {
   const response = await fetch(`${API}/peripheral/create`, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -48,8 +48,8 @@ const connectPeripheralReq = async (data: IPeripheralFormInput) => {
     },
   });
   if (!response.ok) {
-    // throw new Error(`Error deleting device: ${response.status}`);
     Notifications('error', `${response.status}`);
+    throw new Error(`Error deleting device: ${response}`);
   } else {
     Notifications('success', `Peripheral connected!`);
   }
@@ -70,8 +70,8 @@ async function togglePeripheralStatus(
   });
 
   if (!response.ok) {
-    // throw new Error(`Error updating this peripheral: ${response.status}`);
     Notifications('error', `${response.status}`);
+    throw new Error(`Error updating this peripheral: ${response}`);
   } else {
     setPeripherals(
       peripherals.map((peripheral) =>
@@ -96,8 +96,8 @@ const mountDeviceReq = async (data: IMasterDeviceFormInput) => {
     },
   });
   if (!response.ok) {
-    // throw new Error(`Error deleting device: ${response.status}`);
     Notifications('error', `${response.status}`);
+    throw new Error(`Error deleting device: ${response}`);
   } else {
     Notifications('success', `Master-Device is Mounted!`);
   }

@@ -32,6 +32,7 @@ interface IPeripheral extends IIdentifiable {
   vendor: string;
   status: boolean;
   uid: number;
+  toggleModal: () => void;
   newStatus?: boolean;
   disconnectPeripheral: (_id: string) => Promise<void>;
   changePeripheralStatus: (_id: string, newStatus: boolean) => Promise<void>;

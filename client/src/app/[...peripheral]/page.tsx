@@ -20,11 +20,11 @@ const PeripheralsPage: FC<PeripheralsPageProps> = ({ params }): ReactNode => {
   const disconnectPeripheral = async (_id: string): Promise<void> => {
     try {
       const response = await deletePeripheral(_id)
-      
+
       if (response.ok) {
         setPeripherals(perihperals.filter((peripheral) => peripheral._id !== _id));
         Notifications('success', 'Succesfully disconnected!');
-    
+
       }
     } catch (error) {
       Notifications('error', 'Error');
@@ -33,7 +33,7 @@ const PeripheralsPage: FC<PeripheralsPageProps> = ({ params }): ReactNode => {
 
   const changePeripheralStatus = (_id: string, newStatus: boolean): Promise<void> => {
     return togglePeripheralStatus(_id, perihperals, setPeripherals, newStatus)
-  }  
+  }
 
   useLayoutEffect(() => {
     fetchMasterDevice(_id).then((response) => response.json()
@@ -41,7 +41,7 @@ const PeripheralsPage: FC<PeripheralsPageProps> = ({ params }): ReactNode => {
         setPeripherals(data.fetched_device.peripherals);
       }
       ))
-  }, [_id, isOpen])  
+  }, [_id, isOpen])
 
   return (
     <div className=" bg-white text-gray-500  h-min min-w-25 pb-5 shadow-inner shadow-gray-300">
@@ -63,19 +63,19 @@ const PeripheralsPage: FC<PeripheralsPageProps> = ({ params }): ReactNode => {
       </div>
       <div className="w-full h-auto flex flex-col p-2 items-center">
         <Modal props={{ isOpen, toggleModal, isMasterDeviceView: false, _id, headMessage: 'Connect a new Peripheral on this device' }} />
-        
-          {
-            perihperals.map((perihperal) => (
-              <Peripheral 
-                key={perihperal._id}  
-                {...perihperal} 
-                disconnectPeripheral={disconnectPeripheral} 
-                changePeripheralStatus={changePeripheralStatus} 
-                toggleModal={toggleModal}
-              />
-            ))
-          }
-          {perihperals.length === 0 && <NoDevice props={{ message: 'Peripherals', toggleModal }} />}
+
+        {
+          perihperals.map((perihperal) => (
+            <Peripheral
+              key={perihperal._id}
+              {...perihperal}
+              disconnectPeripheral={disconnectPeripheral}
+              changePeripheralStatus={changePeripheralStatus}
+              toggleModal={toggleModal}
+            />
+          ))
+        }
+        {perihperals.length === 0 && <NoDevice props={{ message: 'Peripherals', toggleModal }} />}
       </div>
     </div>
   );

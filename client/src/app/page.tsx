@@ -1,7 +1,7 @@
 'use client'
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useLayoutEffect } from "react";
 import { NoDevice } from "@/components/utils/EmptyTableStatus";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Modal from "@/components/common/CommonModal";
 import MasterDevice from "@/components/dispositives/MasterDevice";
 import { fetchMasterDevices, deleteDevice } from '@/API/HTTP_req'
@@ -20,7 +20,7 @@ const Home: FC = (): ReactNode => {
     return deleteDevice(_id, masterDevices, setMasterDevices)
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     fetchMasterDevices().then((res) => res.json()).then((data) => {
       setMasterDevices(data.master_devices)
     })
