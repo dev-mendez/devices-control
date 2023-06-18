@@ -1,35 +1,81 @@
-# devices-control
-This sample project is managing gateways - master devices that control multiple peripheral devices. 
+# Title: MORE'S CONTROL
 
-Conditions
-You have to prepare a solution to the proposed problem in the defined period of time. The solution must comply with the requirements. For anything not explicitly listed, you are free to choose whatever technology/library/tool you feel comfortable with. 
+***Short description of the project.***
 
-Once ready, you must send a package with the source code of the solution, so it can be built and reviewed by Musala Soft. Instructions how to use the solution must also be provided (resource names, SQL scripts to import test data, other scripts, etc.).
-If you have completed the task after the deadline has expired, you are still encouraged to submit a solution.
-Software Requirements
-Programming language: JavaScript 
-Framework: Node.js/JavaScript + Angular/React or other  
-Database: MongoDB or in-memory
-Automated build: Solution of choice 
-Description
-This sample project is managing gateways - master devices that control multiple peripheral devices. 
-Your task is to create a REST service (JSON/HTTP) for storing information about these gateways and their associated devices. This information must be stored in the database. 
-When storing a gateway, any field marked as “to be validated” must be validated and an error returned if it is invalid. Also, no more that 10 peripheral devices are allowed for a gateway.
-The service must also offer an operation for displaying information about all stored gateways (and their devices) and an operation for displaying details for a single gateway. Finally, it must be possible to add and remove a device from a gateway.
+Focussed on the micromanagement of electronic devices that can provide a sort of service to surrounding peripherals.
 
-Each gateway has:
-•	a unique serial number (string), 
-•	human-readable name (string),
-•	IPv4 address (to be validated),
-•	multiple associated peripheral devices. 
-Each peripheral device has:
-•	a UID (number),
-•	vendor (string),
-•	date created,
-•	status - online/offline.
-Other considerations
-Please, provide 
--	Basic UI - recommended or (providing test data for Postman (or other rest client) if you do not have enough time.
--	Meaningful Unit tests.
--	Readme file with installation guides.
--	An automated build.
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Installation
+
+***Instructions on how to install the project.***
+
+This section should contain instructions on how to install the project. It should be as detailed as possible so that anyone can follow it.
+
+## Usage
+
+***Instructions on how to use the project.***
+
+This section should contain instructions on how to use the project. It should be as detailed as possible so that anyone can use it.
+
+## Contributing
+
+***Instructions on how to contribute to the project.***
+
+This section should contain instructions on how to contribute to the project. It should be as detailed as possible so that anyone can contribute.
+
+## License
+
+***Information about the license of the project.***
+
+This section should contain information about the license of the project. It should be as detailed as possible so that anyone can understand it.
+
+* Nodejs
+  
+  https://nodejs.org/en/download/
+  ```
+
+- Mongodb
+
+  ```
+  https://docs.mongodb.com/manual/installation/
+  ```
+
+## How to run locally the frontend and the backend
+
+Both, server and client folders contains Readme files with instructions about how to run the apps
+
+## Deploy
+
+```
+https://docs.docker.com/compose/install/
+```
+
+```
+docker-compose up --build
+```
+
+Once the Docker's containers are running you can access the backend and frontend applications:
+
+API Rest documentation contract can be found in:
+
+```
+http://localhost:3000/swagger
+```
+
+API Rest uri:
+
+```
+http://localhost:3000
+```
+
+Frontend application:
+
+```
+http://localhost:3001
+```

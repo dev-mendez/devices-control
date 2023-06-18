@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+  device_control_server:
+    build: ./server
+    container_name: devices_control_server
+    ports:
+      - "3000:3000"
+    # environment:
+    #   - API_PORT=3001
+    #   - MONGODB_URI=mongodb://mongodb:27017/device-control
+    #   - MONGODB_URI_TEST=mongodb://mongodb:27017/device-control-test
+    depends_on:
+      - mongodb 
+  client_service:
+    build: ./client
+    container_name: devices_control_client
+    ports:
+      - "3001:3001"
+    # environment:
+    #   - REACT_APP_URL=https://gateway_service_api:3000/
+
+    depends_on:
+      - device_control_server
+
+ 
