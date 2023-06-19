@@ -8,6 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   app.enableCors();
+
   app.useGlobalPipes(
     new ValidationPipe({
       exceptionFactory: (errors) => new BadRequestException(errors),
@@ -16,7 +17,7 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const PORT = configService.get('PORT');
-
+  console.log(`Connected by the port ${PORT}`);
   await app.listen(PORT);
 }
 bootstrap();

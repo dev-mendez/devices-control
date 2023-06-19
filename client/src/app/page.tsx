@@ -21,13 +21,15 @@ const Home: FC = (): ReactNode => {
   }
 
   useLayoutEffect(() => {
-    fetchMasterDevices().then((res) => res.json()).then((data) => {
+    fetchMasterDevices().then((data: any) => {
       setMasterDevices(data.master_devices)
+    }).catch((error)=>{
+      console.log(error.response)
     })
   }, [])
 
   return (
-    <div className=" bg-white text-gray-500  h-min min-w-25 pb-5 shadow-inner shadow-gray-300 ">
+    <div className="bg-white text-gray-500  h-min min-w-25 pb-5 shadow-inner shadow-gray-300 ">
       <Modal props={{
         isOpen, toggleModal,
         isMasterDeviceView: true,

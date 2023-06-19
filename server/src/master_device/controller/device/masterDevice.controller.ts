@@ -9,9 +9,8 @@ import {
   Param,
   ConflictException,
 } from '@nestjs/common';
-
-import { CreateMasterDeviceDto } from '../../dto/createmasterdevice.dto';
-import { MasterDeviceService } from '../../services/device/masterdevice.service';
+import { CreateMasterDeviceDto } from 'src/master_device/dto/createMasterDevice.dto';
+import { MasterDeviceService } from 'src/master_device/services/device/masterdevice.service';
 import { Device } from 'src/master_device/types/device.td';
 
 @Controller('masterdevices')

@@ -1,8 +1,8 @@
-import type { CreateMasterDeviceDto } from '../../dto/createmasterdevice.dto';
-import { Device } from '../../types/device.td';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import type { CreateMasterDeviceDto } from 'src/master_device/dto/createMasterDevice.dto';
+import { Device } from 'src/master_device/types/device.td';
 
 @Injectable()
 export class MasterDeviceService {

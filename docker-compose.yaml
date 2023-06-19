@@ -10,9 +10,9 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - MONGODB_URI=mongodb://admin:123@localhost:27017/devices-control?authSource=admin
+      - MONGODB_URI=mongodb://mongodb:27017/devices-control
       - PORT=3001
-    
+
     depends_on:
       - mongodb 
   client_service:
@@ -21,9 +21,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API=http://localhost:3001
+      - NEXT_PUBLIC_API=http://api_service:3001
 
     depends_on:
-      - device_control_server
-
- 
+      - api_service
