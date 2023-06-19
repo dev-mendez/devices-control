@@ -4,10 +4,9 @@ import type {
   IPeripheralFormInput,
   IMasterDeviceFormInput,
 } from '@/types/types.td';
-
 import { Notifications } from '@/components/common/Notifications';
 
-const API = 'http://localhost:3001';
+const API = process.env.NEXT_PUBLIC_API;
 
 const fetchMasterDevices = async (): Promise<Response> =>
   await fetch(`${API}/masterdevices`);
