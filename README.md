@@ -60,5 +60,5 @@ Testing is an important part of the development and maintenance of our applicati
 
 To run the tests for our application, follow these steps:
 
-1. Install the dependencies by running `npm install or yarn install or pnpm install`.
+1. Install the dependencies by running `npm install`, `yarn install` or `pnpm install`.
 2. Inside the client folder run the unit tests by running `npm run test` or `yarn test` or `pnpm test`.
