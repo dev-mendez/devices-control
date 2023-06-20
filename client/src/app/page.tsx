@@ -21,10 +21,8 @@ const Home: FC = (): ReactNode => {
   }
 
   useLayoutEffect(() => {
-    fetchMasterDevices().then((data: any) => {
+    fetchMasterDevices().then((res) => res.json()).then((data)=>{
       setMasterDevices(data.master_devices)
-    }).catch((error)=>{
-      console.log(error.response)
     })
   }, [])
 
