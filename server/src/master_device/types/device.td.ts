@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { CreateMasterDeviceDto } from '../dto/createmasterdevice.dto';
+import { CreateMasterDeviceDto } from 'src/master_device/dto/createMasterDevice.dto';
 
 export interface Device extends Document {
   readonly serialNumber: string;

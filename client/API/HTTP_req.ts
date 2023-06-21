@@ -6,10 +6,11 @@ import type {
 } from '@/types/types.td';
 import { Notifications } from '@/components/common/Notifications';
 
-const API = process.env.NEXT_PUBLIC_API;
+const API = process.env.NEXT_PUBLIC_API || "http://localhost:3001";
 
-const fetchMasterDevices = async (): Promise<Response> =>
-  await fetch(`${API}/masterdevices`);
+const fetchMasterDevices = async (): Promise<Response> =>{
+  return fetch(`${API}/masterdevices`);
+}
 
 async function deleteDevice(
   _id: string,

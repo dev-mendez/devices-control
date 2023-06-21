@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3"
 services:
   mongodb:
     image: mongo
@@ -10,9 +10,9 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - MONGODB_URI=mongodb://@localhost:27017/devices-control
+      - MONGODB_URI=mongodb://mongodb:27017/devices-control
       - PORT=3001
-    
+
     depends_on:
       - mongodb 
   client_service:
@@ -21,9 +21,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API=http://localhost:3001
+      - NEXT_PUBLIC_API=http://0.0.0.0:3001
 
     depends_on:
       - api_service
-
- 

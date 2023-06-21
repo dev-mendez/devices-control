@@ -1,13 +1,12 @@
-import { PeripheralController } from './controller/peripheral/peripheral.controller';
-import { MaxPeripheralsByDevice } from './dto/validations/maxperipherals';
-import { PeripheralService } from './services/peripheral/peripheral.service';
-import { MasterDeviceService } from './services/device/masterdevice.service';
-import { MasterDeviceSchema } from './schemas/masterdevice.schema';
-import { PeripheralSchema } from './schemas/peripheral.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
-import { MasterDeviceController } from './controller/device/masterdevice.controller';
-
+import { MasterDeviceSchema } from 'src/master_device/schemas/masterdevice.schema';
+import { PeripheralSchema } from 'src/master_device/schemas/peripheral.schema';
+import { MasterDeviceController } from 'src/master_device/controller/device/masterDevice.controller';
+import { PeripheralController } from 'src/master_device/controller/peripheral/peripheral.controller';
+import { MasterDeviceService } from 'src/master_device/services/device/masterdevice.service';
+import { PeripheralService } from 'src/master_device/services/peripheral/peripheral.service';
+import { MaxPeripheralsByDevice } from 'src/master_device/dto/validations/maxperipherals';
 @Module({
   imports: [
     MongooseModule.forFeature([
