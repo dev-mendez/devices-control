@@ -11,6 +11,7 @@ services:
       - "3001:3001"
     environment:
       - MONGODB_URI=mongodb://mongodb:27017/devices-control
+      - SERVER_URL=http://localhost:3001/
       - PORT=3001
 
     depends_on:

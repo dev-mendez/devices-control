@@ -31,7 +31,6 @@ export class MasterDeviceService {
     createMasterDeviceDto: CreateMasterDeviceDto,
   ): Promise<Device> {
     const newMasterDevice = new this.masterDeviceModel(createMasterDeviceDto);
-
     return await newMasterDevice.save();
   }
 

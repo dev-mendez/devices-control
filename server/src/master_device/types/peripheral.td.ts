@@ -5,5 +5,5 @@ export interface IPeripheral extends Document {
   readonly vendor: string;
   readonly status: boolean;
   readonly isDeleted: boolean;
-  idMasterDevice: string;
+  idMasterDevice: string | unknown;
 }
