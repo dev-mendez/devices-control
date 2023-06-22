@@ -25,12 +25,12 @@ const MasterDeviceForm: FC<MasterDeviceFormProps> = ({ props }) => {
 
       <div className='w-full flex flex-col mt-2'>
         <label className='font-medium'>Serial Nº: </label>
-        <input placeholder='1f1c12' data-testid="serial-number-input" className='px-1' {...register("serialNumber", { required: true, maxLength: 20 })} />
+        <input data-testid="serial-number-input" className='px-1' {...register("serialNumber", { required: true, maxLength: 20 })} />
       </div>
 
       <div className='w-full flex flex-col mt-4'>
         <label className='font-medium'>Name: </label>
-        <input placeholder='Router' data-testid="name-input" className='px-1' {...register("name", { required: true, maxLength: 20 })} />
+        <input data-testid="name-input" className='px-1' {...register("name", { required: true, maxLength: 20 })} />
       </div>
 
       <div className='w-full flex flex-col mt-4'>

@@ -33,12 +33,12 @@ const PeripheralForm: FC<PeripheralFormProps> = ({ props }) => {
 
       <div className='w-full flex flex-col mt-2'>
         <label className='font-medium'>Unique ID:</label>
-        <input placeholder='913' type='number' className='px-1' {...register("uid", { required: true, maxLength: 20, valueAsNumber: true })} />
+        <input type='number' className='px-1' {...register("uid", { required: true, maxLength: 20, valueAsNumber: true })} />
       </div>
 
       <div className='w-full flex flex-col mt-4'>
         <label className='font-medium'>Vendor:</label>
-        <input placeholder='Nokia' className='px-1 mt-1' {...register("vendor", { required: true, maxLength: 20 })} />
+        <input className='px-1 mt-1' {...register("vendor", { required: true, maxLength: 20 })} />
       </div>
 
       <div className='w-full flex flex-row mt-4'>
