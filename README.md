@@ -17,17 +17,17 @@ Install Docker and Docker Compose: Make sure you have Docker and Docker Compose 
 
 Download the application: Download the application’s source code from its repository or website. Make sure you have the docker-compose.yml file, which defines the services and their configurations.
 
-Configure the application: If the application requires any configuration, such as setting environment variables or modifying configuration files, follow the instructions provided by the application’s documentation.
+Configure the application: If the application requires any configuration, such as setting environment variables or modifying configuration files from docker-compose-yaml.
 
 Start the application: Open a terminal or command prompt, navigate to the directory containing the docker-compose.yml file, and run the command docker-compose up. This will start all the services defined in the docker-compose.yml file.
 
-Access the application: Once all the services have started, you should be able to access the application.
+Access the application: Once all the services have started. You should be able to access the application by default through the following URLs.
 
-- Server application: http://localhost:3001
+- Server application: `http://localhost:3001`
 
-- Client application: http://localhost:3000
+- Client application: `http://localhost:3000`
 
-- API Rest documentation: ````http://localhost:3000/swagger```
+- API documentation: `https://documenter.getpostman.com/view/17604391/2s93z5AQdC`
 
 ## Usage
 
@@ -36,17 +36,17 @@ Access the application: Once all the services have started, you should be able t
 There are two views, one is for the Master-devices and the other one is for the Slave-devices(Peripherals).
   The navigation between those views is fast, allowing the user to go back and forward between them easily.
 
-Master-devices
+*Master-devices
   The user can add as many Master-devices as he wants.
-  The user can add Master-devices by clicking a button "Mount".
-  The user can delete "Unmount" the Master-devices only if they don't have any peripheral asociate.
-  The user can add peripherals to the Master-devices by clicking a button "Peripherals" and then "Connect".
-Peripherals
+  The user can add Master-devices by clicking the button "Mount".
+  The user can delete "Unmount" the Master-devices only if they don't have any peripheral associates.
+  The user can add peripherals to the Master-devices by clicking the button "Peripherals" and then "Connect".
+*Peripherals
   The user can add only ten peripherals into one Master-device.
-  The peripherals can exist in two status, Stopped or Running.
+  The peripherals can exist in two states, Stopped or Running.
   The peripherals can be created in status Stopped or Running, Stopped by default.
-  The user can change the status of the peripherals by clicking a button "Stop/Run".
-  The user can delete the peripherals by clicking a button "Disconnect", but it only will happen if the peripheral is Stopped.
+  The user can change the status of the peripherals by clicking the button "Stop/Run".
+  The user can delete the peripherals by clicking the button "Disconnect", but it only will happen if the peripheral is Stopped.
 
 ## Testing
 
@@ -54,11 +54,11 @@ Testing is an important part of the development and maintenance of our applicati
 
 ### Testing Methodology
 
-- **Unit tests** are used to test individual units of code in isolation. We use Jest for this time.
+- **Unit tests / E2E test** We use Jest for this time.
 
 ### Running Tests
 
 To run the tests for our application, follow these steps:
 
-1. Install the dependencies by running `npm install`, `yarn install` or `pnpm install`.
-2. Inside the client folder run the unit tests by running `npm run test` or `yarn test` or `pnpm test`.
+1. Install the dependencies by running `npm install`, `yarn install` or `pnpm install` inside of each module Client/Server.
+2. Inside the Client/Server folder run the test `npm run test` or `yarn test` or `pnpm test`.

@@ -10,7 +10,22 @@ export default [
     status: false,
   },
   {
-    uid: 123,
+    uid: 12763,
+    vendor: 'Panasonic',
+    status: false,
+  },
+  {
+    uid: 16523,
+    vendor: 'Lenovo',
+    status: false,
+  },
+  {
+    uid: 12133,
+    vendor: 'Panda',
+    status: false,
+  },
+  {
+    uid: 12323,
     vendor: 'Panasonic',
     status: false,
   },

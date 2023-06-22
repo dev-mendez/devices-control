@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "0956fa23-a95c-488c-b74f-1eb589e979ee",
+		"name": "Device-control",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17604391"
+	},
+	"item": [
+		{
+			"name": "Server-HttpRequests",
+			"item": [
+				{
+					"name": "MasterDevices-HttpReq",
+					"item": [
+						{
+							"name": "masterdevices",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3001/masterdevices",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"masterdevices"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "masterdevice",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3001/masterdevices/6493c3766b835cd0b93eff00",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"masterdevices",
+										"6493c3766b835cd0b93eff00"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "masterdevices/create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"serialNumber\": \"121\",\r\n    \"name\": \"asdas\",\r\n    \"ipV4\": \"12.1.1.1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3001/masterdevices/create",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"masterdevices",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "masterdevices/delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3001/masterdevices/delete/648903381b49ef787dd98d2b",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"masterdevices",
+										"delete",
+										"648903381b49ef787dd98d2b"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Peripherals-HttpReq",
+					"item": [
+						{
+							"name": "peripheral/create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uid\": \"221138333\",\r\n    \"vendor\": \"Nintendoo\",\r\n    \"status\": false,\r\n    \"idMasterDevice\": \"64890835ac67e6583eaa2649\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3001/peripheral/create",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"peripheral",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "peripheral/delete/",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:3001/peripheral/delete/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"peripheral",
+										"delete",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update peripheral status",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:3001/peripheral/update/648c7ab9a7cdb66ad437c5b7",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"peripheral",
+										"update",
+										"648c7ab9a7cdb66ad437c5b7"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
