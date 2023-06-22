@@ -12,7 +12,7 @@ import type { IPeripheral, PeripheralsPageProps } from '@/types/types.td'
 import { Notifications } from "@/components/common/Notifications";
 import { useHttp } from "@/hooks/useHttp";
 
-const PeripheralsPage: FC<PeripheralsPageProps> = ({ params }): ReactNode => {
+const PeripheralsPage: FC = (): ReactNode => {
   const { id } = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const [perihperals, setPeripherals] = useState<IPeripheral[]>([])
