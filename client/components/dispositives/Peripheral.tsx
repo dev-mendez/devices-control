@@ -15,8 +15,6 @@ export const Peripheral: FC<PeripheralProps> = ({ props }) => {
     shouldCallOnFirstRender: false
   });
 
-  console.log('reload', reload)
-
   async function onDelete() {
     if (!status) {
       await deletePeripheral_();
