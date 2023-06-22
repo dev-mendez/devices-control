@@ -63,7 +63,7 @@ describe('Home', () => {
       expect(screen.queryByTestId('create-dialog')).not.toBeInTheDocument();
     })
 
-    expect(Notifications).toHaveBeenCalledWith('success', 'The device was created successfully');
+    expect(Notifications).toHaveBeenCalledWith('success', 'Master-Device is Mounted!');
   })
 
   it("should delete device", async () => {

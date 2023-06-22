@@ -53,7 +53,7 @@ const connectPeripheralReq = async (
       'Content-type': 'application/json',
     },
   });
-  console.log(response);
+  
   if (!response.ok) {
     Notifications('error', `It's not possible to add this peripheral!`);
   } else {
@@ -106,8 +106,6 @@ const mountDeviceReq = async (data: IMasterDeviceFormInput) => {
       'error',
       'Something went wrong! The serial number and the Ip must be unique!'
     );
-  } else {
-    Notifications('success', `Master-Device is Mounted!`);
   }
   return response;
 };
