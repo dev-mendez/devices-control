@@ -34,14 +34,15 @@ interface IPeripheral extends IIdentifiable {
   uid: number;
   toggleModal: () => void;
   newStatus?: boolean;
-  disconnectPeripheral: (_id: string) => Promise<void>;
+  idMasterDevice: string;
   changePeripheralStatus: (_id: string, newStatus: boolean) => Promise<void>;
+  reload: () => void;
 }
 
 interface IPeripheralFormInput {
   vendor: string;
   status: boolean;
-  uid: string;
+  uid: number;
   idMasterDevice: string | unknown;
 }
 
@@ -67,7 +68,27 @@ interface ModalData {
     isMasterDeviceView: boolean;
     _id?: string;
     setMasterDevices?: SetStateAction<IMasterDevice[]> | unknown;
-    reload: () => void
+    reload: () => void;
+  };
+}
+interface MasterDeviceProps {
+  props: {
+    _id: string;
+    name: string;
+    ipV4: string;
+    peripherals: [];
+    reload: () => void;
+  };
+}
+interface PeripheralProps {
+  props: {
+    _id: string;
+    vendor: string;
+    status: boolean;
+    uid: number;
+    idMasterDevice: string;
+    changePeripheralStatus: (_id: string, newStatus: boolean) => Promise<void>;
+    reload: () => void;
   };
 }
 
@@ -78,6 +99,8 @@ export type {
   IPeripheralFormInput,
   PeripheralFormProps,
   PeripheralsPageProps,
+  PeripheralProps,
   MasterDeviceFormProps,
+  MasterDeviceProps,
   ModalData,
 };

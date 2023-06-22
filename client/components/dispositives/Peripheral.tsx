@@ -1,10 +1,31 @@
 import { FC } from "react";
 import { MdOutlineDevicesOther } from "react-icons/md";
 import { Notifications } from "../common/Notifications";
-import { IPeripheral } from "@/types/types.td";
+import { PeripheralProps } from "@/types/types.td";
+import { deletePeripheral } from "@/API/HTTP_req";
+import { useHttp } from "@/hooks/useHttp";
 
-export const Peripheral: FC<IPeripheral> = (props) => {
-  const { disconnectPeripheral, changePeripheralStatus, _id, uid, status } = props
+
+
+export const Peripheral: FC<PeripheralProps> = ({ props }) => {
+  const { changePeripheralStatus, _id, uid, status, reload } = props
+
+  const { refetch: deletePeripheral_ } = useHttp({
+    factory: () => deletePeripheral(_id),
+    shouldCallOnFirstRender: false
+  });
+
+  console.log('reload', reload)
+
+  async function onDelete() {
+    if (!status) {
+      await deletePeripheral_();
+      reload();
+      Notifications('success', 'Succesfully disconnected!');
+    } else {
+      Notifications('error', 'You must stop the peripheral first');
+    }
+  }
 
   return (
     <div data-testid={_id} className="w-full md:flex bg-slate-300 text-gray-500  p-2 my-1 shadow hover:shadow-gray-400">
@@ -29,10 +50,9 @@ export const Peripheral: FC<IPeripheral> = (props) => {
           className="px-2 border border-gray-200 bg-green-100 hover:bg-green-300">{status ? 'Stop' : 'Run'}
         </button>
         <button data-testid={`disconnect-button-${_id}`}
-          onClick={async () => !status
-            ? await disconnectPeripheral(_id)
-            : Notifications('error', 'You must stop the peripheral first')}
-          className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300">Disconnect
+          className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300"
+          onClick={onDelete}
+        >Disconnect
         </button>
       </div>
     </div >

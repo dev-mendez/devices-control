@@ -3,31 +3,24 @@ import Link from "next/link";
 import { GiWifiRouter } from 'react-icons/gi'
 import { Notifications } from '@/components/common/Notifications';
 import { useHttp } from "@/hooks/useHttp";
-import { deleteDeviceV1 } from '@/API/HTTP_req'
+import { deletMasterDevice } from '@/API/HTTP_req'
+import { MasterDeviceProps } from "@/types/types.td";
 
-interface MasterDeviceProps {
-  props: {
-    _id: string,
-    name: string,
-    ipV4: string,
-    peripherals: [],
-    reload: () => void
-  }
-}
+
 const MasterDevice: FC<MasterDeviceProps> = ({ props }) => {
   const { name, ipV4, peripherals, _id, reload } = props
-  
+
   const { refetch: deleteDevice } = useHttp({
-    factory: () => deleteDeviceV1(_id),
+    factory: () => deletMasterDevice(_id),
     shouldCallOnFirstRender: false
   });
 
-  const onDelete = async () => {
-    if(!peripherals.length){
+  async function onDelete() {
+    if (!peripherals.length) {
       await deleteDevice();
       reload();
-      Notifications('success', 'The device was deleted successfully');
-    }else{
+      Notifications('success', 'The device was unmounted!');
+    } else {
       Notifications('error', 'You must disconnect all peripherals first');
     }
   }
@@ -55,9 +48,9 @@ const MasterDevice: FC<MasterDeviceProps> = ({ props }) => {
         <Link href={`peripheral/${_id}`}>
           <button className="px-2 border border-gray-200 bg-green-100 hover:bg-green-300">Peripherals</button>
         </Link>
-        <button 
-        data-testid={`${_id}-delete-device-button`} 
-        onClick={onDelete} className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300">Unmount</button>
+        <button
+          data-testid={`${_id}-delete-device-button`}
+          onClick={onDelete} className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300">Unmount</button>
       </div>
     </div>
   );

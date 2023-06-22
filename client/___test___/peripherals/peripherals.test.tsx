@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import PeripheralsPage from '@/src/app/[...peripheral]/page'
+import PeripheralsPage from '@/src/app/peripheral/[id]/page'
 import { mockPeripheralData } from "@/__mocks__/data";
 import { Notifications } from '@/components/common/Notifications';
 
@@ -43,12 +43,15 @@ describe('Peripherals', () => {
     const statusButton = screen.getByTestId('disconnect-button-648de7587bb530564a21224e');
     fireEvent.click(statusButton);
 
-    await waitFor(() => {
+    waitFor(() => {
       expect(screen.queryByTestId('648de7587bb530564a21224e')).not.toBeInTheDocument();
     })
 
-    expect(Notifications).toBeCalledWith("success", "Succesfully disconnected!");
+    waitFor(() => {
+      expect(Notifications).toBeCalledWith("success", "Succesfully disconnected!");
+    })
   })
+
 
   it('should not disconnect the peripheral if the status is connected', async () => {
 

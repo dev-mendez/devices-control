@@ -66,7 +66,7 @@ describe('Home', () => {
     expect(Notifications).toHaveBeenCalledWith('success', 'Master-Device is Mounted!');
   })
 
-  it("should delete device", async () => {
+  it("should unmount the  master-device", async () => {
     render(<Home />);
 
     await waitFor(() => {
@@ -79,7 +79,7 @@ describe('Home', () => {
     fireEvent.click(deleteDeviceButton);
 
     await waitFor(()=>{
-      expect(Notifications).toHaveBeenCalledWith('success', 'The device was deleted successfully');
+      expect(Notifications).toHaveBeenCalledWith('success', 'The device was unmounted!');
     })    
   })
 })

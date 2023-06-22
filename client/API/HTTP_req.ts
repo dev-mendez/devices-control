@@ -1,67 +1,44 @@
 import type {
-  IMasterDevice,
   IPeripheral,
   IPeripheralFormInput,
   IMasterDeviceFormInput,
 } from '@/types/types.td';
 import { Notifications } from '@/components/common/Notifications';
 
-const API = process.env.NEXT_PUBLIC_API || "http://localhost:3001";
+const API = process.env.NEXT_PUBLIC_API || 'http://localhost:3001';
 
-const fetchMasterDevices = (): Promise<Response> =>{
+function fetchMasterDevices(): Promise<Response> {
   return fetch(`${API}/masterdevices`);
 }
 
-const deleteDeviceV1 = (_id: string) => {
-  return fetch(`${API}/masterdevices/delete/${_id}`, {
-    method: 'DELETE',
-  });
+function fetchMasterDevice(_id: string): Promise<Response> {
+  return fetch(`${API}/masterdevices/${_id}`);
 }
 
-async function deleteDevice(
-  _id: string,
-  master_devices: Array<IMasterDevice>,
-  setMasterDevices: ([]) => void
-): Promise<void> {
-  const response = await fetch(`${API}/masterdevices/delete/${_id}`, {
-    method: 'DELETE',
-  });
-
-  if (!response.ok) {
-    Notifications('error', `${response.status}`);
-    throw new Error(`Error unmounting this device!: ${response}`);
-  } else {
-    setMasterDevices(master_devices.filter((device) => device._id !== _id));
-    Notifications('success', 'Succesfully unmounted!');
-  }
+function deletMasterDevice(_id: string): Promise<Response> {
+  return fetch(`${API}/masterdevices/delete/${_id}`, { method: 'DELETE' });
 }
-
-const fetchMasterDevice = async (_id: string) =>
-  await fetch(`${API}/masterdevices/${_id} `);
 
 function deletePeripheral(_id: string): Promise<Response> {
   return fetch(`${API}/peripheral/delete/${_id}`, { method: 'DELETE' });
 }
 
-const connectPeripheralReq = async (
+async function connectPeripheralReq(
   data: IPeripheralFormInput
-): Promise<Response> => {
+): Promise<Response> {
   const response = await fetch(`${API}/peripheral/create`, {
     method: 'POST',
     body: JSON.stringify(data),
-    headers: {
-      'Content-type': 'application/json',
-    },
+    headers: { 'Content-type': 'application/json' },
   });
-  
+
   if (!response.ok) {
-    Notifications('error', `It's not possible to add this peripheral!`);
+    Notifications('error', `It's not possible to connect this peripheral!`);
   } else {
     Notifications('success', `Peripheral connected!`);
   }
-
   return response;
-};
+}
 
 async function togglePeripheralStatus(
   _id: string,
@@ -93,14 +70,13 @@ async function togglePeripheralStatus(
   }
 }
 
-const mountDeviceReq = async (data: IMasterDeviceFormInput) => {
+async function mountDeviceReq(data: IMasterDeviceFormInput) {
   const response = await fetch(`${API}/masterdevices/create`, {
     method: 'POST',
     body: JSON.stringify(data),
-    headers: {
-      'Content-type': 'application/json',
-    },
+    headers: { 'Content-type': 'application/json' },
   });
+
   if (!response.ok) {
     Notifications(
       'error',
@@ -108,15 +84,14 @@ const mountDeviceReq = async (data: IMasterDeviceFormInput) => {
     );
   }
   return response;
-};
+}
 
 export {
   fetchMasterDevices,
-  deleteDevice,
+  deletMasterDevice,
   fetchMasterDevice,
   deletePeripheral,
   connectPeripheralReq,
   togglePeripheralStatus,
   mountDeviceReq,
-  deleteDeviceV1
 };
