@@ -1,6 +1,7 @@
 'use client'
-import { ReactNode, useEffect, useState, useLayoutEffect } from "react";
+import { ReactNode, useState, useLayoutEffect } from "react";
 import { FC } from "react";
+import { useParams } from 'next/navigation'
 import { NoDevice } from "@/components/utils/EmptyTableStatus";
 import { Peripheral } from "@/components/dispositives/Peripheral";
 import Link from "next/link";
@@ -9,20 +10,28 @@ import { MdOutlineArrowBackIos } from 'react-icons/md'
 import { fetchMasterDevice, deletePeripheral, togglePeripheralStatus } from '@/API/HTTP_req'
 import type { IPeripheral, PeripheralsPageProps } from '@/types/types.td'
 import { Notifications } from "@/components/common/Notifications";
+import { useHttp } from "@/hooks/useHttp";
 
-const PeripheralsPage: FC<PeripheralsPageProps> = ({ params }): ReactNode => {
+const PeripheralsPage: FC = (): ReactNode => {
+  const { id } = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const [perihperals, setPeripherals] = useState<IPeripheral[]>([])
-  const _id = params.peripheral[1]
+
+  const { loading, refetch } = useHttp({
+    factory: () => fetchMasterDevice(id),
+    onComplete: (data: any) => {
+      setPeripherals(data.fetched_device.peripherals);
+    }
+  });
 
   const toggleModal = (): void => setIsOpen(!isOpen);
 
-  const disconnectPeripheral = async (_id: string): Promise<void> => {
+  const disconnectPeripheral = async (id: string): Promise<void> => {
     try {
-      const response = await deletePeripheral(_id)
+      const response = await deletePeripheral(id)
 
       if (response.ok) {
-        setPeripherals(perihperals.filter((peripheral) => peripheral._id !== _id));
+        setPeripherals(perihperals.filter((peripheral) => peripheral._id !== id));
         Notifications('success', 'Succesfully disconnected!');
 
       }
@@ -34,14 +43,6 @@ const PeripheralsPage: FC<PeripheralsPageProps> = ({ params }): ReactNode => {
   const changePeripheralStatus = (_id: string, newStatus: boolean): Promise<void> => {
     return togglePeripheralStatus(_id, perihperals, setPeripherals, newStatus)
   }
-
-  useLayoutEffect(() => {
-    fetchMasterDevice(_id).then((response) => response.json()
-      .then((data) => {
-        setPeripherals(data.fetched_device.peripherals);
-      }
-      ))
-  }, [_id, isOpen])
 
   return (
     <div className=" bg-white text-gray-500  h-min min-w-25 pb-5 shadow-inner shadow-gray-300">
@@ -62,8 +63,18 @@ const PeripheralsPage: FC<PeripheralsPageProps> = ({ params }): ReactNode => {
         </div>
       </div>
       <div className="w-full h-auto flex flex-col p-2 items-center">
-        <Modal props={{ isOpen, toggleModal, isMasterDeviceView: false, _id, headMessage: 'Connect a new Peripheral on this device' }} />
+        <Modal
+          props={{
+            isOpen,
+            toggleModal,
+            isMasterDeviceView: false,
+            _id: id,
+            headMessage: 'Connect a new Peripheral on this device',
+            reload: refetch
+          }}
+        />
 
+        {loading && <div>Loading...</div>}
         {
           perihperals.map((perihperal) => (
             <Peripheral

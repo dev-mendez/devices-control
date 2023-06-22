@@ -8,8 +8,14 @@ import { Notifications } from '@/components/common/Notifications';
 
 const API = process.env.NEXT_PUBLIC_API || "http://localhost:3001";
 
-const fetchMasterDevices = async (): Promise<Response> =>{
+const fetchMasterDevices = (): Promise<Response> =>{
   return fetch(`${API}/masterdevices`);
+}
+
+const deleteDeviceV1 = (_id: string) => {
+  return fetch(`${API}/masterdevices/delete/${_id}`, {
+    method: 'DELETE',
+  });
 }
 
 async function deleteDevice(
@@ -47,7 +53,7 @@ const connectPeripheralReq = async (
       'Content-type': 'application/json',
     },
   });
-  console.log(response);
+  
   if (!response.ok) {
     Notifications('error', `It's not possible to add this peripheral!`);
   } else {
@@ -100,8 +106,6 @@ const mountDeviceReq = async (data: IMasterDeviceFormInput) => {
       'error',
       'Something went wrong! The serial number and the Ip must be unique!'
     );
-  } else {
-    Notifications('success', `Master-Device is Mounted!`);
   }
   return response;
 };
@@ -114,4 +118,5 @@ export {
   connectPeripheralReq,
   togglePeripheralStatus,
   mountDeviceReq,
+  deleteDeviceV1
 };

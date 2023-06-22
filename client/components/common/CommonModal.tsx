@@ -4,7 +4,7 @@ import MasterDeviceForm from "../forms/MasterDeviceForm";
 import PeripheralForm from "../forms/PeripheralForm";
 
 const Modal = ({ props }: ModalData) => {
-  const { _id, isOpen, toggleModal, isMasterDeviceView, headMessage, setMasterDevices } = props
+  const { _id, isOpen, toggleModal, isMasterDeviceView, headMessage, reload } = props
 
   return (
     <div>
@@ -20,8 +20,8 @@ const Modal = ({ props }: ModalData) => {
             </div>
             <div className="modal-content">
               {isMasterDeviceView ?
-                <MasterDeviceForm props={{ setMasterDevices, toggleModal }} /> :
-                <PeripheralForm props={{ _id, toggleModal }} />}
+                <MasterDeviceForm props={{ toggleModal, reload }} /> :
+                <PeripheralForm props={{ _id, toggleModal, reload }} />}
             </div>
           </div>
         </div>

@@ -4,35 +4,29 @@ import { NoDevice } from "@/components/utils/EmptyTableStatus";
 import { useState } from "react";
 import Modal from "@/components/common/CommonModal";
 import MasterDevice from "@/components/dispositives/MasterDevice";
-import { fetchMasterDevices, deleteDevice } from '@/API/HTTP_req'
+import { fetchMasterDevices } from '@/API/HTTP_req'
 import type { IMasterDevice } from "@/types/types.td";
 import 'react-toastify/dist/ReactToastify.css';
+import { useHttp } from "@/hooks/useHttp";
 
 const Home: FC = (): ReactNode => {
   const [isOpen, setIsOpen] = useState(false);
-  const [masterDevices, setMasterDevices] = useState<IMasterDevice[]>([])
+
+  const { loading, data, refetch } = useHttp({
+    factory: fetchMasterDevices,  
+  });
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
   }
 
-  const unmountDevice = (_id: string): Promise<void> => {
-    return deleteDevice(_id, masterDevices, setMasterDevices)
-  }
-
-  useLayoutEffect(() => {
-    fetchMasterDevices().then((res) => res.json()).then((data) => {
-      setMasterDevices(data.master_devices)
-    })
-  }, [])
-
   return (
-    <div className=" bg-white text-gray-500  h-min min-w-25 pb-5 shadow-inner shadow-gray-300 ">
+    <div className="bg-white text-gray-500  h-min min-w-25 pb-5 shadow-inner shadow-gray-300 ">
       <Modal props={{
         isOpen, toggleModal,
         isMasterDeviceView: true,
         headMessage: 'Mount a new Master-Device',
-        setMasterDevices
+        reload: refetch
       }}
       />
       <div className="px-2">
@@ -44,10 +38,16 @@ const Home: FC = (): ReactNode => {
         </div>
       </div>
       <div className="w-full h-auto  flex flex-col  p-2  items-center">
-        {masterDevices.length > 0
-          ? masterDevices.map((mdevice, id) => (<MasterDevice key={id} props={{ ...mdevice, unmountDevice }} />))
-          : (<NoDevice props={{ message: 'Master Device', toggleModal }}
-          />)}
+        {loading && <div>Loading...</div>}
+        {
+        data?.master_devices?.map((mdevice: IMasterDevice) => (
+          <MasterDevice 
+            key={mdevice._id} 
+            props={{ ...mdevice, reload: refetch }} 
+          />
+          ))
+        }
+        { data?.master_devices?.length === 0 && <NoDevice props={{ message: 'Master Device', toggleModal }}/> }
       </div>
     </div>
   );

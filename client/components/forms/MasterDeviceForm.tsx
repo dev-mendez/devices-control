@@ -4,19 +4,20 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import type { MasterDeviceFormProps, IMasterDeviceFormInput } from '@/types/types.td'
 import { mountDeviceReq } from '@/API/HTTP_req'
 import type { IMasterDevice } from "@/types/types.td";
+import { Notifications } from '@/components/common/Notifications';
 
 
 const MasterDeviceForm: FC<MasterDeviceFormProps> = ({ props }) => {
-  const { toggleModal, setMasterDevices } = props
+  const { toggleModal, reload } = props
 
   const { register, handleSubmit } = useForm<IMasterDeviceFormInput>()
   const onSubmit: SubmitHandler<IMasterDeviceFormInput> = async (data) => {
     const res = await mountDeviceReq(data)
 
     if (res.status === 200) {
-      const data_ = await res.json();
-      setMasterDevices((oldData: IMasterDevice[]) => ([{ ...data_.created_master_device, peripherals: [] }, ...oldData]));
       toggleModal();
+      reload();
+      Notifications('success', `Master-Device is Mounted!`);
     }
   }
 

@@ -6,7 +6,7 @@ import type { IPeripheralFormInput, PeripheralFormProps } from '@/types/types.td
 
 
 const PeripheralForm: FC<PeripheralFormProps> = ({ props }) => {
-  const { _id, toggleModal } = props
+  const { _id, toggleModal, reload } = props
 
   const { register, handleSubmit } = useForm<IPeripheralFormInput>({
     defaultValues: {
@@ -24,7 +24,7 @@ const PeripheralForm: FC<PeripheralFormProps> = ({ props }) => {
     const res = await connectPeripheralReq(output)
     if (res.status === 201) {
       toggleModal()
-      // console.log('HITTED!')
+      reload();
     }
   }
 
@@ -32,12 +32,12 @@ const PeripheralForm: FC<PeripheralFormProps> = ({ props }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
 
       <div className='w-full flex flex-col mt-2'>
-        <label className='font-medium'>Unique ID: </label>
+        <label className='font-medium'>Unique ID:</label>
         <input placeholder='913' type='number' className='px-1' {...register("uid", { required: true, maxLength: 20, valueAsNumber: true })} />
       </div>
 
       <div className='w-full flex flex-col mt-4'>
-        <label className='font-medium'>Vendor: </label>
+        <label className='font-medium'>Vendor:</label>
         <input placeholder='Nokia' className='px-1 mt-1' {...register("vendor", { required: true, maxLength: 20 })} />
       </div>
 

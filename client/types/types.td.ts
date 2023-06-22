@@ -23,7 +23,7 @@ interface IMasterDeviceFormInput {
 interface MasterDeviceFormProps {
   props: {
     toggleModal: () => void;
-    setMasterDevices: any;
+    reload: () => void;
   };
 }
 
@@ -49,6 +49,7 @@ interface PeripheralFormProps {
   props: {
     _id?: string;
     toggleModal: () => void;
+    reload: () => void;
   };
 }
 
@@ -66,6 +67,7 @@ interface ModalData {
     isMasterDeviceView: boolean;
     _id?: string;
     setMasterDevices?: SetStateAction<IMasterDevice[]> | unknown;
+    reload: () => void
   };
 }
 

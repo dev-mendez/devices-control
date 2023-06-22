@@ -2,21 +2,25 @@ import Home from '@/src/app/page';
 import '@testing-library/jest-dom'
 import { screen, render, waitFor, fireEvent } from '@testing-library/react';
 import { mockData, mockDataAddedDevice } from '@/__mocks__/data';
-import { deleteDevice } from '../API/HTTP_req';
+import { Notifications } from '@/components/common/Notifications';
 
 jest.mock('../API/HTTP_req', () => ({
   __esModule: true,
   ...jest.requireActual('../API/HTTP_req'),
-  fetchMasterDevices: () => Promise.resolve({
-    json: () => Promise.resolve(mockData),
-  }),
   mountDeviceReq: () => Promise.resolve({
     status: 200,
     json: () => Promise.resolve(mockDataAddedDevice),
   }),
-  deleteDevice: jest.fn()
+  deleteDeviceV1: jest.fn()
 }));
 jest.mock('../components/common/Notifications')
+jest.mock('../hooks/useHttp', ()=>({
+  useHttp: () => ({
+    loading: false,
+    refetch: jest.fn(),
+    data: mockData
+  })
+}));
 
 describe('Home', () => {
   it('should display the devices in the list', async () => {
@@ -59,13 +63,7 @@ describe('Home', () => {
       expect(screen.queryByTestId('create-dialog')).not.toBeInTheDocument();
     })
 
-    // await waitFor(() => {
-    //   expect(Notifications).toHaveBeenCalledWith("success", "Master-Device is Mounted!");
-    // })
-
-    await waitFor(() => {
-      expect(screen.queryByTestId('648da83b0be5590671c2ecd1')).toBeInTheDocument();
-    })
+    expect(Notifications).toHaveBeenCalledWith('success', 'Master-Device is Mounted!');
   })
 
   it("should delete device", async () => {
@@ -80,6 +78,8 @@ describe('Home', () => {
     const deleteDeviceButton = screen.getByTestId('648d7e640be5590671c2eca2-delete-device-button');
     fireEvent.click(deleteDeviceButton);
 
-    expect(deleteDevice).toBeCalled();
+    await waitFor(()=>{
+      expect(Notifications).toHaveBeenCalledWith('success', 'The device was deleted successfully');
+    })    
   })
 })

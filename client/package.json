@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "log": "tree"
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@types/node": "20.3.0",
