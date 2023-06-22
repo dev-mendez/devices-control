@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import PeripheralsPage from '@/src/app/[...peripheral]/page'
+import PeripheralsPage from '@/src/app/peripheral/[id]/page'
 import { mockPeripheralData } from "@/__mocks__/data";
 import { Notifications } from '../../components/common/Notifications'
 

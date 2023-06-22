@@ -8,8 +8,14 @@ import { Notifications } from '@/components/common/Notifications';
 
 const API = process.env.NEXT_PUBLIC_API || "http://localhost:3001";
 
-const fetchMasterDevices = async (): Promise<Response> =>{
+const fetchMasterDevices = (): Promise<Response> =>{
   return fetch(`${API}/masterdevices`);
+}
+
+const deleteDeviceV1 = (_id: string) => {
+  return fetch(`${API}/masterdevices/delete/${_id}`, {
+    method: 'DELETE',
+  });
 }
 
 async function deleteDevice(
@@ -114,4 +120,5 @@ export {
   connectPeripheralReq,
   togglePeripheralStatus,
   mountDeviceReq,
+  deleteDeviceV1
 };

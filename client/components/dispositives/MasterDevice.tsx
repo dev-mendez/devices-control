@@ -2,18 +2,35 @@ import { FC } from "react";
 import Link from "next/link";
 import { GiWifiRouter } from 'react-icons/gi'
 import { Notifications } from '@/components/common/Notifications';
+import { useHttp } from "@/hooks/useHttp";
+import { deleteDeviceV1 } from '@/API/HTTP_req'
 
 interface MasterDeviceProps {
   props: {
     _id: string,
     name: string,
-    ipV4: string
-    peripherals: []
-    unmountDevice: (_id: string) => Promise<void>
+    ipV4: string,
+    peripherals: [],
+    reload: () => void
   }
 }
 const MasterDevice: FC<MasterDeviceProps> = ({ props }) => {
-  const { name, ipV4, peripherals, unmountDevice, _id } = props
+  const { name, ipV4, peripherals, _id, reload } = props
+  
+  const { refetch: deleteDevice } = useHttp({
+    factory: () => deleteDeviceV1(_id),
+    shouldCallOnFirstRender: false
+  });
+
+  const onDelete = async () => {
+    if(!peripherals.length){
+      await deleteDevice();
+      reload();
+      Notifications('success', 'The device was deleted successfully');
+    }else{
+      Notifications('error', 'You must disconnect all peripherals first');
+    }
+  }
 
   return (
     <div data-testid={_id} className="w-full md:flex bg-slate-300 text-gray-500  p-2 my-1 shadow hover:shadow-gray-400">
@@ -35,16 +52,15 @@ const MasterDevice: FC<MasterDeviceProps> = ({ props }) => {
         </div>
       </div>
       <div className="inline-block ml-auto float-right  align-middle self-center space-x-2 md:space-x-4">
-        <Link href={`perihperal/${_id}`}>
+        <Link href={`peripheral/${_id}`}>
           <button className="px-2 border border-gray-200 bg-green-100 hover:bg-green-300">Peripherals</button>
         </Link>
         <button 
         data-testid={`${_id}-delete-device-button`} 
-        onClick={async () => !peripherals.length ? await unmountDevice(_id) : Notifications('error', 'You must disconnect all peripherals first')
-        } className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300">Unmount</button>
+        onClick={onDelete} className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300">Unmount</button>
       </div>
     </div>
   );
 }
 
-export default MasterDevice
+export default MasterDevice;
