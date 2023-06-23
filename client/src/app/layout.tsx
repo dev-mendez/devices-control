@@ -1,7 +1,7 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+// import { Inter } from 'next/font/google'
 import { Navbar } from '@/components/common/Navbar'
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body /**className={inter.className} */>
         <Navbar />
         <main className="min-h-screen items-center p-2 md:p-24">
           {children}
