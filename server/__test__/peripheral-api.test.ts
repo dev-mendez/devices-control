@@ -44,6 +44,7 @@ describe('MasterDeviceController (e2e)', () => {
 
   afterEach(async () => {
     const collections = mongoose.connection.collections;
+    masterDeviceModel.deleteMany({});
     for (const key in collections) {
       const collection = collections[key];
       await collection.deleteMany({});

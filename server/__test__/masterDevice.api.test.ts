@@ -28,8 +28,8 @@ describe('MasterDeviceController (e2e)', () => {
   let masterDeviceModel: Model<MasterDevice>;
 
   afterEach(async () => {
-    // gatewayModel.deleteMany({});
     const collections = mongoose.connection.collections;
+    masterDeviceModel.deleteMany({});
 
     for (const key in collections) {
       const collection = collections[key];
@@ -82,102 +82,4 @@ describe('MasterDeviceController (e2e)', () => {
     const result = await request(env.SERVER_URL).get('masterdevices');
     expect(result.status).toBe(200);
   });
-
-  // it('/masterdevice (GET) detail endpoint', async () => {
-  //   const masterDevice = masterDeviceDataFake[0];
-
-  //   const resultDB = await masterDeviceModel.create(masterDevice);
-  //   console.log(resultDB._id);
-  //   console.log(resultDB._id.toString());
-  //   // const {
-  //   //   status,
-  //   //   body: { name, serialNumber, ipV4 },
-  //   // } = await request(env.SERVER_URL).post(`masterdevices/${resultDB._id}`);
-
-  //   //get all data from the bd
-  //   const result = await request(env.SERVER_URL).post(
-  //     'masterdevices/6493e8fcad7af050596ef698',
-  //   );
-  //   console.log(result.body);
-  //   expect(result.status).toBe(200);
-
-  //   // expect(status).toBe(200);
-
-  //   // expect(name).toEqual(gateWay.name);
-  //   // expect(serialNumber).toEqual(gateWay.serialNumber);
-  //   // expect(ipV4).toEqual(gateWay.ipV4);
-  // });
-
-  // it('/gateways (POST) endpoint inserted new gateways', async () => {
-  //   const gateWay = masterDeviceDataFake[0];
-  //   const {
-  //     status,
-  //     body: { name, serialNumber, ipV4 },
-  //   } = await request(app.getHttpServer()).post('/gateway').send(gateWay);
-  //   expect(status).toBe(201);
-
-  //   expect(name).toEqual(gateWay.name);
-  //   expect(serialNumber).toEqual(gateWay.serialNumber);
-  //   expect(ipV4).toEqual(gateWay.ipV4);
-  // });
-
-  // it('/gateways (POST) bad request with invalid ipV4', async () => {
-  //   const {
-  //     status,
-  //     body: { error },
-  //   } = await request(app.getHttpServer()).post('/gateway').send({
-  //     serialNumber: 'serial1',
-  //     name: 'name1',
-  //     ipV4: '270.4.17.5',
-  //   });
-
-  //   expect(status).toEqual(400);
-  //   expect(error[0].message).toEqual('IPV4 is not valid');
-  // });
-
-  // it('/gateways (POST) bad request with empty name', async () => {
-  //   const {
-  //     status,
-  //     body: { error },
-  //   } = await request(app.getHttpServer()).post('/gateway').send({
-  //     serialNumber: 'serial1',
-  //     ipV4: '27.4.17.5',
-  //   });
-
-  //   expect(status).toEqual(400);
-  //   expect(error[0].message).toEqual('name should not be empty');
-  // });
-
-  // it('/gateways (POST) bad request with empty serialNumber', async () => {
-  //   const {
-  //     status,
-  //     body: { error },
-  //   } = await request(app.getHttpServer()).post('/gateway').send({
-  //     name: 'name1',
-  //     ipV4: '27.4.17.5',
-  //   });
-
-  //   expect(status).toEqual(400);
-  //   expect(error[0].message).toEqual('serialNumber should not be empty');
-  // });
-
-  // it('/gateways (POST) bad request with duplicate serialNumber', async () => {
-  //   await masterDeviceModel.create({
-  //     name: 'name2',
-  //     ipV4: '27.4.16.5',
-  //     serialNumber: 'serial1',
-  //   });
-
-  //   const {
-  //     status,
-  //     body: { error },
-  //   } = await request(app.getHttpServer()).post('/gateway').send({
-  //     name: 'name1',
-  //     ipV4: '27.4.17.5',
-  //     serialNumber: 'serial1',
-  //   });
-
-  //   expect(status).toEqual(400);
-  //   expect(error[0].message).toEqual('serialNumber must be unique');
-  // });
 });

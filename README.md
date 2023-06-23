@@ -23,11 +23,9 @@ Start the application: Open a terminal or command prompt, navigate to the direct
 
 Access the application: Once all the services have started. You should be able to access the application by default through the following URLs.
 
-- Server application: `http://localhost:3001`
-
-- Client application: `http://localhost:3000`
-
-- API documentation: `https://documenter.getpostman.com/view/17604391/2s93z5AQdC`
+[Server](`http://localhost:3001 "Server application:")
+[Client](`http://localhost:3000 "Client application:")
+[API Doc.](`https://documenter.getpostman.com/view/17604391/2s93z5AQdC "API documentation:")
 
 ## Usage
 
@@ -54,7 +52,7 @@ Testing is an important part of the development and maintenance of our applicati
 
 ### Testing Methodology
 
-- **Unit tests / E2E test** We use Jest for this time.
+- **Unit tests / E2E test** I use Jest for this time.
 
 ### Running Tests
 
