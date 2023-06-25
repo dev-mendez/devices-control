@@ -69,7 +69,7 @@ describe('MasterDeviceController (e2e)', () => {
     // app.useGlobalFilters(new ValidationExceptionFilter());
 
     masterDeviceModel = mongoConnection.model(
-      'MasterDeviceSchema',
+      'MasterDevices',
       MasterDeviceSchema,
     );
     await app.init();

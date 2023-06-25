@@ -18,20 +18,18 @@ const env = {
   MONGODB_URI: process.env.MONGODB_URI,
 };
 
-// const DB_CONNECTION = process.env.MONGODB_URI;
-// console.log(DB_CONNECTION);
-
 (async function () {
   await connect(env.MONGODB_URI);
 
   const masterDeviceModel: Model<MasterDevice> = mongoose.model(
-    'MasterDeviceSchema',
+    'MasterDeviceS',
     MasterDeviceSchema,
   );
   const peripheralModel: Model<Peripheral> = mongoose.model(
-    'PeripheralSchema',
+    'Peripheral',
     PeripheralSchema,
   );
+
   await masterDeviceModel.deleteMany({});
   await peripheralModel.deleteMany({});
 
@@ -41,6 +39,7 @@ const env = {
     );
 
     const peripheral = await peripheralModel.create(peripheralFakeData[i]);
+    
     const peripheralDB = await peripheral.save();
 
     await masterDeviceModel.findOneAndUpdate(

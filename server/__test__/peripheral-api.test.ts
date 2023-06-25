@@ -83,13 +83,10 @@ describe('MasterDeviceController (e2e)', () => {
     );
     // app.useGlobalFilters(new ValidationExceptionFilter());
     masterDeviceModel = mongoConnection.model(
-      'MasterDeviceSchema',
+      'MasterDevices',
       MasterDeviceSchema,
     );
-    peripheralModel = mongoConnection.model(
-      'PeripheralSchema',
-      PeripheralSchema,
-    );
+    peripheralModel = mongoConnection.model('Peripherals', PeripheralSchema);
 
     await app.init();
   });
