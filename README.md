@@ -27,7 +27,7 @@ Access the application: Once all the services have started. You should be able t
 
 **[Server:](http://localhost:3001)** 🧰
 
-**[API - DOC:](`https://documenter.getpostman.com/view/17604391/2s93z5AQdC)** 🔠
+**[API - DOC:](https://documenter.getpostman.com/view/17604391/2s93z5AQdC)** 🔠
 
 ## Usage
 
