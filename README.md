@@ -19,7 +19,7 @@ Download the application: Download the application’s source code from its repo
 
 Configure the application: If the application requires any configuration, such as setting environment variables or modifying configuration files from docker-compose-yaml.
 
-Start the application: Open a terminal or command prompt, navigate to the directory containing the docker-compose.yml file, and run the command docker-compose up. This will start all the services defined in the docker-compose.yml file.
+Start the application: Open a terminal or command prompt, navigate to the directory containing the docker-compose.yml file, and run the command `docker-compose up` 🚀. This will start all the services defined in the docker-compose.yml file.
 
 Access the application: Once all the services have started. You should be able to access the application by default through the following URLs.
 
@@ -36,17 +36,25 @@ Access the application: Once all the services have started. You should be able t
 There are two views, one is for the Master-devices and the other one is for the Slave-devices(Peripherals).
   The navigation between those views is fast, allowing the user to go back and forward between them easily.
 
-*Master-devices
-  The user can add as many Master-devices as he wants.
-  The user can add Master-devices by clicking the button "Mount".
-  The user can delete "Unmount" the Master-devices only if they don't have any peripheral associates.
-  The user can add peripherals to the Master-devices by clicking the button "Peripherals" and then "Connect".
-*Peripherals
-  The user can add only ten peripherals into one Master-device.
-  The peripherals can exist in two states, Stopped or Running.
-  The peripherals can be created in status Stopped or Running, Stopped by default.
-  The user can change the status of the peripherals by clicking the button "Stop/Run".
-  The user can delete the peripherals by clicking the button "Disconnect", but it only will happen if the peripheral is Stopped.
+*MASTER-DEVICES
+  -The user can add as many Master-devices as he wants.
+  
+  -The user can add Master-devices by clicking the button "Mount".
+  
+  -The user can delete "Unmount" the Master-devices only if they don't have any peripheral associates.
+  
+  -The user can add peripherals to the Master-devices by clicking the button "Peripherals" and then "Connect".
+
+*PERIPHERALS
+  -The user can add only ten peripherals into one Master-device.
+
+  -The peripherals can exist in two states, Stopped or Running.
+  
+  -The peripherals can be created in status Stopped or Running, Stopped by default.
+  
+  -The user can change the status of the peripherals by clicking the button "Stop/Run".
+  
+  -The user can delete the peripherals by clicking the button "Disconnect", but it only will happen if the peripheral is Stopped.
 
 ## Testing
 
