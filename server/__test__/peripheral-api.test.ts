@@ -81,12 +81,13 @@ describe('MasterDeviceController (e2e)', () => {
         exceptionFactory: (errors) => new BadRequestException(errors),
       }),
     );
-    // app.useGlobalFilters(new ValidationExceptionFilter());
+
     masterDeviceModel = mongoConnection.model(
-      'MasterDevices',
+      'masterdevices',
       MasterDeviceSchema,
     );
-    peripheralModel = mongoConnection.model('Peripherals', PeripheralSchema);
+
+    peripheralModel = mongoConnection.model('peripherals', PeripheralSchema);
 
     await app.init();
   });
@@ -109,9 +110,18 @@ describe('MasterDeviceController (e2e)', () => {
   it('/peripheral (POST) endpoint insert a new peripheral', async () => {
     const peripheral = await createPeripheral();
 
-    const { status } = await request(env.SERVER_URL)
+    const {
+      status,
+      body: {
+        newPeripheral: { uid, vendor, status: statusDevice },
+      },
+    } = await request(env.SERVER_URL)
       .post('peripheral/create')
       .send(peripheral);
+
+    expect(peripheral.uid).toEqual(uid);
+    expect(peripheral.vendor).toEqual(vendor);
+    expect(peripheral.status).toEqual(statusDevice);
 
     expect(status).toEqual(201);
   });
