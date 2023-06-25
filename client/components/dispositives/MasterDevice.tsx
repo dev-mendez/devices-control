@@ -39,10 +39,14 @@ const MasterDevice: FC<MasterDeviceProps> = ({ props }) => {
           <div className="font-bold self-center"><u>Ip</u>: </div>
           <div className="font-bold self-center">{ipV4}</div>
         </div>
-        <div className="sm:flex-column inline-block md:flex">
+        <Link href={`peripheral/${_id}`} className="sm:flex-column inline-block md:flex">
           <div className="font-bold hover:cursor-pointer self-center"><u>Peripherals</u>: </div>
-          <div className=" self-center">{peripherals.length}</div>
-        </div>
+          <div className='self-center'>{peripherals.length < 10 ?
+            (<p className=" text-green-700">{peripherals.length}</p>) :
+            (<p className="text-red-400">{peripherals.length}</p>)
+          }
+          </div>
+        </Link>
       </div>
       <div className="inline-block ml-auto float-right  align-middle self-center space-x-2 md:space-x-4">
         <Link href={`peripheral/${_id}`}>
@@ -52,7 +56,7 @@ const MasterDevice: FC<MasterDeviceProps> = ({ props }) => {
           data-testid={`${_id}-delete-device-button`}
           onClick={onDelete} className="px-2 border border-gray-200 bg-red-100 hover:bg-red-300">Unmount</button>
       </div>
-    </div>
+    </div >
   );
 }
 
