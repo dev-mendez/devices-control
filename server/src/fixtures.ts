@@ -22,7 +22,7 @@ const env = {
   await connect(env.MONGODB_URI);
 
   const masterDeviceModel: Model<MasterDevice> = mongoose.model(
-    'MasterDeviceS',
+    'MasterDevices',
     MasterDeviceSchema,
   );
   const peripheralModel: Model<Peripheral> = mongoose.model(
@@ -38,14 +38,15 @@ const env = {
       masterDeviceFakeData[i],
     );
 
-    const peripheral = await peripheralModel.create(peripheralFakeData[i]);
+    const rn = Math.floor(Math.random() * (10 - 0 + 1)) + 0;
     
-    const peripheralDB = await peripheral.save();
-
-    await masterDeviceModel.findOneAndUpdate(
-      { _id: masterDeviceDB._id },
-      { $push: { peripherals: peripheralDB } },
-    );
+    for (let j = 0; j < rn; j++) {
+      const peripheral = await peripheralModel.create(peripheralFakeData[i]);
+      await masterDeviceModel.findOneAndUpdate(
+        { _id: masterDeviceDB._id },
+        { $push: { peripherals: peripheral } },
+      );
+    }
   }
 
   await connection.close();

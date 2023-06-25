@@ -17,7 +17,7 @@ export default [
   {
     uid: 16523,
     vendor: 'Lenovo',
-    status: false,
+    status: true,
   },
   {
     uid: 12133,
@@ -27,6 +27,6 @@ export default [
   {
     uid: 12323,
     vendor: 'Panasonic',
-    status: false,
+    status: true,
   },
 ];

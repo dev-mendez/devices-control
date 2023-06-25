@@ -23,9 +23,9 @@ Start the application: Open a terminal or command prompt, navigate to the direct
 
 Access the application: Once all the services have started. You should be able to access the application by default through the following URLs.
 
-[Server](`http://localhost:3001 "Server application:")
-[Client](`http://localhost:3000 "Client application:")
-[API Doc.](`https://documenter.getpostman.com/view/17604391/2s93z5AQdC "API documentation:")
+[Server](`http://localhost:3001` "Server application:")
+[Client](`http://localhost:3000` "Client application:")
+[API Doc.](`https://documenter.getpostman.com/view/17604391/2s93z5AQdC` "API documentation:")
 
 ## Usage
 
