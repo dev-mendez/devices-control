@@ -14,18 +14,21 @@ export const Peripheral: FC<PeripheralProps> = ({ props }) => {
 
   const { refetch: deletePeripheral_ } = useHttp({
     factory: () => deletePeripheral(_id),
-    shouldCallOnFirstRender: false
+    shouldCallOnFirstRender: false,
+    onComplete: () => {
+      reload()
+      Notifications('success', 'Succesfully disconnected!');
+    }
   });
 
-  async function onDelete() {
+  const onDelete = () => {
     if (!status) {
-      await deletePeripheral_();
-      reload();
-      Notifications('success', 'Succesfully disconnected!');
+      deletePeripheral_();
     } else {
       Notifications('error', 'You must stop the peripheral first');
     }
   }
+
 
   return (
     <div data-testid={_id} title={`Created at: ${createdAt_}`} className="w-full md:flex bg-slate-300 text-gray-500  p-2 my-1 shadow hover:shadow-gray-400">

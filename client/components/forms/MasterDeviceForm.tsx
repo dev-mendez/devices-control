@@ -16,7 +16,7 @@ const MasterDeviceForm: FC<MasterDeviceFormProps> = ({ props }) => {
     if (res.status === 200) {
       toggleModal();
       reload();
-      Notifications('success', `Master-Device is Mounted!`);
+      Notifications('success', `The device was unmounted!`);
     }
   }
 

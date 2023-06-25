@@ -12,14 +12,16 @@ const MasterDevice: FC<MasterDeviceProps> = ({ props }) => {
 
   const { refetch: deleteDevice } = useHttp({
     factory: () => deletMasterDevice(_id),
-    shouldCallOnFirstRender: false
+    shouldCallOnFirstRender: false,
+    onComplete: () => {
+      reload()
+      Notifications('success', 'The device was unmounted!');  
+    }
   });
 
-  async function onDelete() {
+  const onDelete = () => {
     if (!peripherals.length) {
-      await deleteDevice();
-      reload();
-      Notifications('success', 'The device was unmounted!');
+      deleteDevice();
     } else {
       Notifications('error', 'You must disconnect all peripherals first');
     }

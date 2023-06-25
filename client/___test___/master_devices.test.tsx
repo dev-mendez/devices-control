@@ -63,7 +63,7 @@ describe('Home', () => {
       expect(screen.queryByTestId('create-dialog')).not.toBeInTheDocument();
     })
 
-    expect(Notifications).toHaveBeenCalledWith('success', 'Master-Device is Mounted!');
+    expect(Notifications).toHaveBeenCalledWith('success', 'The device was unmounted!');
   })
 
   it("should unmount the  master-device", async () => {
