@@ -35,6 +35,7 @@ interface IPeripheral extends IIdentifiable {
   toggleModal: () => void;
   newStatus?: boolean;
   idMasterDevice: string;
+  createdAt: string;
   changePeripheralStatus: (_id: string, newStatus: boolean) => Promise<void>;
   reload: () => void;
 }

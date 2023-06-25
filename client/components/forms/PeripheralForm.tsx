@@ -8,7 +8,7 @@ import type { IPeripheralFormInput, PeripheralFormProps } from '@/types/types.td
 const PeripheralForm: FC<PeripheralFormProps> = ({ props }) => {
   const { _id, toggleModal, reload } = props
 
-  const { register, handleSubmit } = useForm<IPeripheralFormInput>({
+  const { register, handleSubmit, formState: { errors } } = useForm<IPeripheralFormInput>({
     defaultValues: {
       idMasterDevice: _id
     },
@@ -32,12 +32,18 @@ const PeripheralForm: FC<PeripheralFormProps> = ({ props }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
 
       <div className='w-full flex flex-col mt-2'>
-        <label className='font-medium'>Unique ID:</label>
+        <div className="flex">
+          <label className='font-medium'>Unique ID:</label>
+          {errors.uid?.type === "required" && (<p className='font-thin text-red-400 ml-auto' role="ipV4">Required</p>)}
+        </div>
         <input type='number' className='px-1' {...register("uid", { required: true, maxLength: 20, valueAsNumber: true })} />
       </div>
 
       <div className='w-full flex flex-col mt-4'>
-        <label className='font-medium'>Vendor:</label>
+        <div className="flex">
+          <label className='font-medium'>Vendor:</label>
+          {errors.vendor?.type === "required" && (<p className='font-thin text-red-400 ml-auto' role="ipV4">Required</p>)}
+        </div>
         <input className='px-1 mt-1' {...register("vendor", { required: true, maxLength: 20 })} />
       </div>
 
