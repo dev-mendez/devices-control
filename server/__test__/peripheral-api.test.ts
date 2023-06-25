@@ -20,6 +20,7 @@ import mongoose, { Connection, connect, Model } from 'mongoose';
 import masterDeviceFakeData from './fakedata/master-device';
 import { MasterDeviceModule } from '../src/master_device/masterdevice.module';
 import * as dotenv from 'dotenv';
+import { chownSync, stat } from 'fs';
 
 dotenv.config({});
 
@@ -90,6 +91,7 @@ describe('MasterDeviceController (e2e)', () => {
     peripheralModel = mongoConnection.model('peripherals', PeripheralSchema);
 
     await app.init();
+    await app.listen(80);
   });
 
   const createPeripheral = async () => {
@@ -113,16 +115,17 @@ describe('MasterDeviceController (e2e)', () => {
     const {
       status,
       body: {
-        newPeripheral: { uid, vendor, status: statusDevice },
+        message,
+        newPeripheral: { uid, vendor },
       },
-    } = await request(env.SERVER_URL)
-      .post('peripheral/create')
+    } = await request(app.getHttpServer())
+      .post('/peripheral/create')
       .send(peripheral);
 
-    expect(peripheral.uid).toEqual(uid);
-    expect(peripheral.vendor).toEqual(vendor);
-    expect(peripheral.status).toEqual(statusDevice);
+    expect(uid).toEqual(peripheral.uid);
+    expect(vendor).toEqual(peripheral.vendor);
 
+    expect(message).toEqual('Device successfully created!');
     expect(status).toEqual(201);
   });
 
@@ -130,8 +133,8 @@ describe('MasterDeviceController (e2e)', () => {
     const peripheral = await createPeripheral();
     peripheral.uid = null;
 
-    const { status } = await request(env.SERVER_URL)
-      .post('peripheral/create')
+    const { status } = await request(app.getHttpServer())
+      .post('/peripheral/create')
       .send(peripheral);
 
     expect(status).toEqual(400);
@@ -141,8 +144,8 @@ describe('MasterDeviceController (e2e)', () => {
     const peripheral = await createPeripheral();
     peripheral.vendor = null;
 
-    const { status } = await request(env.SERVER_URL)
-      .post('peripheral/create')
+    const { status } = await request(app.getHttpServer())
+      .post('/peripheral/create')
       .send(peripheral);
 
     expect(status).toEqual(400);
@@ -151,8 +154,8 @@ describe('MasterDeviceController (e2e)', () => {
     const peripheral = await createPeripheral();
     peripheral.vendor = null;
 
-    const { status } = await request(env.SERVER_URL)
-      .post('peripheral/create')
+    const { status } = await request(app.getHttpServer())
+      .post('/peripheral/create')
       .send(peripheral);
 
     expect(status).toEqual(400);
@@ -162,8 +165,8 @@ describe('MasterDeviceController (e2e)', () => {
     const peripheral = await createPeripheral();
     peripheral.idMasterDevice = null;
 
-    const { status } = await request(env.SERVER_URL)
-      .post('peripheral/create')
+    const { status } = await request(app.getHttpServer())
+      .post('/peripheral/create')
       .send(peripheral);
 
     expect(status).toEqual(400);
