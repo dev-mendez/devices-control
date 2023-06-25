@@ -19,14 +19,6 @@ import {
 import mongoose, { Connection, connect, Model } from 'mongoose';
 import masterDeviceFakeData from './fakedata/master-device';
 import { MasterDeviceModule } from '../src/master_device/masterdevice.module';
-import * as dotenv from 'dotenv';
-import { chownSync, stat } from 'fs';
-
-dotenv.config({});
-
-const env = {
-  SERVER_URL: process.env.SERVER_URL,
-};
 
 describe('MasterDeviceController (e2e)', () => {
   type TPeripheral = {
@@ -140,16 +132,6 @@ describe('MasterDeviceController (e2e)', () => {
     expect(status).toEqual(400);
   });
 
-  it('/device (POST) bad request with empty vendor', async () => {
-    const peripheral = await createPeripheral();
-    peripheral.vendor = null;
-
-    const { status } = await request(app.getHttpServer())
-      .post('/peripheral/create')
-      .send(peripheral);
-
-    expect(status).toEqual(400);
-  });
   it('/device (POST) bad request with empty vendor', async () => {
     const peripheral = await createPeripheral();
     peripheral.vendor = null;

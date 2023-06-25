@@ -23,13 +23,15 @@ Start the application: Open a terminal or command prompt, navigate to the direct
 
 Access the application: Once all the services have started. You should be able to access the application by default through the following URLs.
 
-[Server](`http://localhost:3001` "Server application:")
-[Client](`http://localhost:3000` "Client application:")
-[API Doc.](`https://documenter.getpostman.com/view/17604391/2s93z5AQdC` "API documentation:")
+**[Client:](http://localhost:3000)** 🍀
+
+**[Server:](http://localhost:3001)** 🧰
+
+**[API - DOC:](`https://documenter.getpostman.com/view/17604391/2s93z5AQdC)** 🔠
 
 ## Usage
 
-***Instructions on how to use the project.***
+***Instructions on how it works***
 
 There are two views, one is for the Master-devices and the other one is for the Slave-devices(Peripherals).
   The navigation between those views is fast, allowing the user to go back and forward between them easily.
