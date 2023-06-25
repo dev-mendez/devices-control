@@ -13,6 +13,7 @@ import { useHttp } from "@/hooks/useHttp";
 
 const PeripheralsPage: FC = (): ReactNode => {
   const { id } = useParams()
+  const maxPeripheralsOnDevice = 10;
   const [isOpen, setIsOpen] = useState(false);
   const [perihperals, setPeripherals] = useState<IPeripheral[]>([])
 
@@ -46,11 +47,12 @@ const PeripheralsPage: FC = (): ReactNode => {
 
       <div className="px-2">
         <div className="flex justify-between p-2  text-2xl  border-b-2 shadow shadow-gray-200  border-gray-600">
-          <div className="w-1/2 ">
-            <h1>Pheripherals</h1></div>
+          <div className="w-1/2 flex">
+            <h1>Pheripherals:</h1> [slots {maxPeripheralsOnDevice - perihperals.length}]
+          </div>
           <div className="space-x-2 flex flex-row">
             <Link className="flex align-middle" href={'/'}>
-              <button className="px-2 bg-emerald-200 hover:bg-green-100 self-center">
+              <button disabled title="Get Back" className="px-2 bg-emerald-200 hover:bg-green-100 self-center">
                 <MdOutlineArrowBackIos size={30} />
               </button>
             </Link>

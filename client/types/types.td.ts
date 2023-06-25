@@ -86,6 +86,7 @@ interface PeripheralProps {
     vendor: string;
     status: boolean;
     uid: number;
+    createdAt: string;
     idMasterDevice: string;
     changePeripheralStatus: (_id: string, newStatus: boolean) => Promise<void>;
     reload: () => void;
