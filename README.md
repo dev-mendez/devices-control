@@ -23,11 +23,7 @@ Start the application: Open a terminal or command prompt, navigate to the direct
 
 Access the application: Once all the services have started. You should be able to access the application by default through the following URLs.
 
-**[Client:](http://localhost:3000)** 🍀
-
-**[Server:](http://localhost:3001)** 🧰
-
-**[API - DOC:](https://documenter.getpostman.com/view/17604391/2s93z5AQdC)** 🔠
+**[Client:](http://localhost:3000)** 🍀 **[Server:](http://localhost:3001)** 🧰 **[API - DOC:](https://documenter.getpostman.com/view/17604391/2s93z5AQdC)** 🔠
 
 ## Usage
 
@@ -37,6 +33,7 @@ There are two views, one is for the Master-devices and the other one is for the 
   The navigation between those views is fast, allowing the user to go back and forward between them easily.
 
 *MASTER-DEVICES
+
   -The user can add as many Master-devices as he wants.
   
   -The user can add Master-devices by clicking the button "Mount".
@@ -46,6 +43,7 @@ There are two views, one is for the Master-devices and the other one is for the 
   -The user can add peripherals to the Master-devices by clicking the button "Peripherals" and then "Connect".
 
 *PERIPHERALS
+
   -The user can add only ten peripherals into one Master-device.
 
   -The peripherals can exist in two states, Stopped or Running.
