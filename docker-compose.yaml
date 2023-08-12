@@ -19,7 +19,7 @@ services:
     build: ./client
     container_name: devices_control_client
     ports:
-      - "3000:3000"
+      - "3004:3000"
     environment:
       - NEXT_PUBLIC_API=http://127.0.0.1:3001
 
